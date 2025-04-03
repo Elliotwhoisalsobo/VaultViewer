@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace VaultViewer.Business
 {
-    internal class Login
-    {
+	public class Login
+	{
+		public string UserName { get; set; }
+		public int EmployeeID { get; set; }
 
-    }
+		public Login(string userName, int employeeID)
+		{
+			UserName = userName;
+			EmployeeID = employeeID;
+		}
+	}
 }
