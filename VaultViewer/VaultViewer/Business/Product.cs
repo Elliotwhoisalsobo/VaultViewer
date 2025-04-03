@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace VaultViewer.Business
 {
-    internal class Customer
+    internal class Product
     {
+
     }
 }

@@ -8,5 +8,6 @@ namespace VaultViewer.Business
 {
     internal class Customer
     {
+
     }
 }
