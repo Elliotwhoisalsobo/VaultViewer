@@ -8,9 +8,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+	<ItemGroup>
+		<Folder Include="UI\" />
+		<Folder Include="DataAccessLayer\" />
+		<Folder Include="ServiceLayer\" />
+	</ItemGroup>
+
   <ItemGroup>
-    <Folder Include="DataAccessLayer\" />
-    <Folder Include="ServiceLayer\" />
+    <PackageReference Include="MySql.Data" Version="9.2.0" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿<Window x:Class="VaultViewer.MainWindow"
+﻿<Window x:Class="VaultViewer.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <!-- UI elements here -->
+        <Button Content="Test DB Connection" Click="BtnTestConnection_Click" Width="150" Height="30" Margin="10"/>
 
     </Grid>
 </Window>

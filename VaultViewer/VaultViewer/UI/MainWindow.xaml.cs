@@ -8,8 +8,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VaultViewer.ServiceLayer;
 
-namespace VaultViewer
+namespace VaultViewer.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -19,6 +20,14 @@ namespace VaultViewer
         public MainWindow()
         {
             InitializeComponent();
+
         }
+
+        private void BtnTestConnection_Click(object sender, RoutedEventArgs e)
+        {
+            var database = new LoginService();
+            database.TestConnection();
+        }
+
     }
 }
