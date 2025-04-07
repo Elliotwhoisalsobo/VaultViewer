@@ -39,12 +39,12 @@ namespace VaultViewer.ServiceLayer
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open(); // don't forget to close
-                string query = "SELECT id from users WHERE username = @username AND password = @password";
+                string query = "SELECT EmployeeID from employeelogin WHERE username = @username AND passwordhash = @passwordhash";
                 // employee --> employeeRole --> role 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@passwordhash", password);
 
                     using (var reader = cmd.ExecuteReader())
                     {

@@ -33,22 +33,21 @@ namespace VaultViewer.UI
 
         private void BtnAuthenticate(object sender, RoutedEventArgs e)
         {
-             var a = Authenticate.ActualHeight;
+            var a = Authenticate.ActualHeight;
             var database = new LoginService();
-
+            string Username = txt_Username.Text;
+            string Password = txt_Password.Text;
             database.Authenticate(Username, Password);
-            // wpf code:
-            // LoginService loginService = new LoginService();
-            //bool success = loginService.Authenticate(txtUsername.Text, txtPassword.Password);
+            bool success = database.Authenticate(Username, Password);
 
-            //if (success)
-            //{
-            //  MessageBox.Show("Login geslaagd!");
-            // }
-            //else
-            //{
-            //  MessageBox.Show("Ongeldige inloggegevens.");
-            // }
+            if (success)
+            {
+              MessageBox.Show("Login succesfull : D");
+             }
+            else
+            {
+              MessageBox.Show("Invalid login details : (.");
+             }
         }
         // Buttons are instantiated or not depending on role of user
         // Make second window LoginWindow --> MainWindow
