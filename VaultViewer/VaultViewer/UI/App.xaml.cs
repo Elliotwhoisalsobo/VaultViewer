@@ -9,6 +9,12 @@ namespace VaultViewer
     /// </summary>
     public partial class App : Application
     {
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            App app = new App();
+            app.InitializeComponent();
+            app.Run();
+        }
     }
-
 }
