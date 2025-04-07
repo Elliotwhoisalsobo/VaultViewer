@@ -7,15 +7,14 @@ using System.Windows;
 using MySql.Data.MySqlClient;
 
 namespace VaultViewer.ServiceLayer
-{
+{ // should not know whether it's wpf/console/etc
     public class LoginService
     {
-        private string connectionstring = "Server=localhost:3306;Database=vaultviewer;Uid=root;Pwd=root";
+        private string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root";
 
        // check if connectionstring is valid or not.
         public bool TestConnection()
         {
-            string connectionString = "server=localhost:3306;database=vaultviewer;uid=root;pwd=root;";
 
             try
             {
@@ -37,11 +36,11 @@ namespace VaultViewer.ServiceLayer
 
         public bool Authenticate(string username, string password)
         {
-            using (MySqlConnection conn = new MySqlConnection(connectionstring))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open(); // don't forget to close
-                string query = "SSELECT id from users WHERE username = @username AND password = @password";
-
+                string query = "SELECT id from users WHERE username = @username AND password = @password";
+                // employee --> employeeRole --> role 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
@@ -49,21 +48,21 @@ namespace VaultViewer.ServiceLayer
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        return reader.HasRows;
+
+                        return reader.HasRows; // also return list of roles
                     }
                 }
-                // wpf code:
-              // LoginService loginService = new LoginService();
-                //bool success = loginService.Authenticate(txtUsername.Text, txtPassword.Password);
 
-                //if (success)
-                //{
-                  //  MessageBox.Show("Login geslaagd!");
-               // }
-                //else
-                //{
-                  //  MessageBox.Show("Ongeldige inloggegevens.");
-               // }
+/* SELECT r.name
+FROM
+    Users u JOIN
+    Employee e ON u.EmployeeId = e.EmployeeId JOIN
+    EmployeeRole er ON e.EmployeeId = er.EmployeeId JOIN
+    Role r ON er.RoleId = r.RoleId
+WHERE
+    u.UserName = @UserName AND
+    u.Password = @Password;
+*/
 
             }
         }

@@ -10,11 +10,11 @@ namespace VaultViewer
     public partial class App : Application
     {
         [STAThread]
-        public static void Main(string[] args)
+        public static void Main(string[] args) // is this really needed?
         {
             App app = new App();
             app.InitializeComponent();
-            app.Run();
+            app.Run(); // creates instance of app and runs it
         }
     }
 }
