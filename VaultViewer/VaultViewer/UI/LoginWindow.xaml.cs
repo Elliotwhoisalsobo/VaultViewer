@@ -46,13 +46,13 @@ namespace VaultViewer.UI
             string Username = txt_Username.Text;
             string Password = txt_Password.Password;
 
-            bool success = database.Authenticate(Username, Password);
+            bool success = database.Authenticate(Username, Password, out List<string> userRoles);
 
             if (success)
             {
                 MessageBox.Show("Login succesfull : D");
                 // UI logic here (no UI logic in servicelayer : D)
-                UserPanel userpanel = new UserPanel();
+                UserPanel userpanel = new UserPanel(userRoles);
                 userpanel.Show();
                 this.Close(); // Current instance of loginwindow
             }

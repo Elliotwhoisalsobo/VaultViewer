@@ -1,28 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using VaultViewer.ServiceLayer;
 
 namespace VaultViewer.UI
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
     public partial class UserPanel : Window
     {
-        public UserPanel()
+        private List<string> _userRoles;
+
+        // Constructor that accepts the roles list
+        public UserPanel(List<string> userRoles)
         {
             InitializeComponent();
+            _userRoles = userRoles; // Store the roles for later use (e.g., controlling UI visibility)
+
+            // Set up the UI based on user roles
+            SetUpUIBasedOnRoles();
+        }
+
+        // This method can be used to modify the UI based on roles
+        private void SetUpUIBasedOnRoles()
+        {
+            foreach (var role in _userRoles)
+            {
+                if (role == "Admin")
+                {
+                    // Show admin buttons or features
+                    BtnAdmin.Visibility = Visibility.Visible;
+                }
+                else if (role == "User")
+                {
+                    // Show user-specific buttons or features
+                    BtnUser.Visibility = Visibility.Visible;
+                }
+                // Add more role-based conditions as needed
+            }
         }
 
         private void BtnLogout(object sender, RoutedEventArgs e)
@@ -30,7 +43,6 @@ namespace VaultViewer.UI
             LoginWindow lw = new LoginWindow();
             lw.Show();
             this.Close();
-            
         }
     }
 }

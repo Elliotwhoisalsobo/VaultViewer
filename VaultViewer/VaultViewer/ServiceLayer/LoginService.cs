@@ -8,10 +8,11 @@ using MySql.Data.MySqlClient;
 using BCrypt.Net;
 using System.Security.Cryptography.X509Certificates;
 using VaultViewer.UI;
+using Org.BouncyCastle.Asn1.X509;
 
 
 namespace VaultViewer.ServiceLayer
-{ // should not know whether it's wpf/console/etc
+{ // should not know whether it's wpf/console/etc <-- NO UI LOGIC
     public class LoginService
     {
         // db connection
@@ -44,13 +45,43 @@ namespace VaultViewer.ServiceLayer
             return BCrypt.Net.BCrypt.HashPassword(plainPassword);
         }
 
-
-        public bool Authenticate(string username, string password)
+        // Get Roles:
+        public List<string> GetRoles(int employeeId)
         {
+            List<string> roles = new List<string>();
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = @"SELECT r.Name 
+                         FROM employeerole er 
+                         JOIN role r ON er.RoleId = r.RoleId 
+                         WHERE er.EmployeeId = @employeeId";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@employeeId", employeeId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            roles.Add(reader.GetString("Name"));
+                        }
+                    }
+                }
+            }
+
+            return roles;
+        }
+
+
+        public bool Authenticate(string username, string password, out List<string> roles) // out = return parameter value instead of take in value for parameter
+        {
+            roles = new List<string>();
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open(); // don't forget to close
-                string query = "SELECT PasswordHash FROM employeelogin WHERE UserName = @username";
+                string query = "SELECT PasswordHash, EmployeeID FROM employeelogin WHERE UserName = @username";
                 // employee --> employeeRole --> role 
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
@@ -62,22 +93,29 @@ namespace VaultViewer.ServiceLayer
                         if (reader.Read())
                         {
                             string storedHash = reader.GetString("PasswordHash");
-                            //MainWindow mw = new MainWindow();
-                            //mw.Show();
-                            return BCrypt.Net.BCrypt.Verify(password, storedHash); // also return list of roles
-                            
+                            int employeeId = reader.GetInt32("EmployeeID");
+
+                            // Verify password
+                            if (BCrypt.Net.BCrypt.Verify(password, storedHash))
+                            {
+                                // password correct, fetch list of roles for user  
+                                roles = GetRoles(employeeId);
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+
                         }
-                        else
-                        {
-                            return false;
-                        }
-                        
+
                     }
-                    
+
                 }
-                
             }
+            return false; // authentication failed
         }
+
         // Enum thingy for all possible types of wrong userinput:
         public enum InputValidationResult
         {
