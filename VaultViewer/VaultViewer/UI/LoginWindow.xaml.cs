@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.Eventing.Reader;
+﻿using Microsoft.Win32;
+using System.Diagnostics.Eventing.Reader;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,8 +52,9 @@ namespace VaultViewer.UI
             {
                 MessageBox.Show("Login succesfull : D");
                 // UI logic here (no UI logic in servicelayer : D)
-                MainWindow mw = new MainWindow();
-                mw.Show();
+                UserPanel userpanel = new UserPanel();
+                userpanel.Show();
+                this.Close(); // Current instance of loginwindow
             }
             else
             {

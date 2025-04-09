@@ -11,17 +11,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VaultViewer.ServiceLayer;
 
 namespace VaultViewer.UI
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UserPanel : Window
     {
-        public MainWindow()
+        public UserPanel()
         {
             InitializeComponent();
+        }
+
+        private void BtnLogout(object sender, RoutedEventArgs e)
+        {
+            LoginWindow lw = new LoginWindow();
+            lw.Show();
+            this.Close();
+            
         }
     }
 }
