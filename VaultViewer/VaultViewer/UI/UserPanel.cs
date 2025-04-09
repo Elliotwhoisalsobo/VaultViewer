@@ -29,9 +29,17 @@ namespace VaultViewer.UI
                     // Show admin buttons or features
                     BtnAdmin.Visibility = Visibility.Visible;
                 }
-                else if (role == "User")
+                if (role == "Default")
                 {
                     // Show user-specific buttons or features
+                    BtnUser.Visibility = Visibility.Visible;
+                }
+                if (role == "HR")
+                {
+                    BtnHR.Visibility = Visibility.Visible;
+                }
+                if (role == "Engineer")
+                {
                     BtnUser.Visibility = Visibility.Visible;
                 }
                 // Add more role-based conditions as needed
