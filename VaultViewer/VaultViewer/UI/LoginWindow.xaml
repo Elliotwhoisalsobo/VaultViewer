@@ -1,0 +1,33 @@
+﻿<!-- This is the UserInterface!!! -->
+<Window x:Class="VaultViewer.UI.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VaultViewer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+        <!-- UI elements here -->
+        <Button x:Name="Elliot" Content="Test db Connection" Click="BtnTestConnection_Click" Width="125" Height="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="50, 60, -400, 300"/>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="150,225,0,0">
+            <!--<Button x:Name="Elliot" Content="Test DB Connection"
+            Width="150" Height="30" Click="BtnTestConnection_Click"/> -->
+            <TextBox x:Name="txt_Username" 
+            Width="150" Height="30" Margin="0,0,0,0"/>
+            <PasswordBox x:Name="txt_Password"
+            Width="150" Height="30" Margin="0,10,0,0"/>
+        </StackPanel>
+        <Button x:Name="Authenticate" Content="Authenticate user" Click="BtnAuthenticate" HorizontalAlignment="Left" Margin="332,249,0,0" VerticalAlignment="Top"/>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="150,11,0,214">
+            <!--<Button x:Name="Elliot" Content="Test DB Connection"
+            Width="150" Height="30" Click="BtnTestConnection_Click"/> -->
+            <TextBox x:Name="txt_input_Username" 
+                Width="150" Height="30" Margin="0,0,0,0"/>
+            <PasswordBox x:Name="txt_input_Password"
+                Width="150" Height="30" Margin="0,25,0,0"/>
+        </StackPanel>
+        <Button x:Name="create_user" Content="Create user" Click="BtnCreateUser" HorizontalAlignment="Left" Margin="332,40,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

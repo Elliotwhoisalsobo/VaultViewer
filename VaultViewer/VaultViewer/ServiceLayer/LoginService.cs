@@ -7,6 +7,7 @@ using System.Windows;
 using MySql.Data.MySqlClient;
 using BCrypt.Net;
 using System.Security.Cryptography.X509Certificates;
+using VaultViewer.UI;
 
 
 namespace VaultViewer.ServiceLayer
@@ -61,14 +62,20 @@ namespace VaultViewer.ServiceLayer
                         if (reader.Read())
                         {
                             string storedHash = reader.GetString("PasswordHash");
+                            //MainWindow mw = new MainWindow();
+                            //mw.Show();
                             return BCrypt.Net.BCrypt.Verify(password, storedHash); // also return list of roles
+                            
                         }
                         else
                         {
                             return false;
                         }
+                        
                     }
+                    
                 }
+                
             }
         }
         // Enum thingy for all possible types of wrong userinput:
