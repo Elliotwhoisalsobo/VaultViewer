@@ -10,7 +10,7 @@ using System.Security.Cryptography.X509Certificates;
 using VaultViewer.UI;
 using Org.BouncyCastle.Asn1.X509;
 using System.Configuration;
-
+using VaultViewer.DataAccessLayer;
 
 namespace VaultViewer.ServiceLayer
 { // should not know whether it's wpf/console/etc <-- NO UI LOGIC

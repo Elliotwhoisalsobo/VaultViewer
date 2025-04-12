@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Org.BouncyCastle.Tls;
+using System;
 using System.Collections.Generic;
 using System.Windows;
+using MySql.Data.MySqlClient;
 using VaultViewer.ServiceLayer;
+using VaultViewer.DataAccessLayer;
+using System.Data;
 
 namespace VaultViewer.UI
 {
@@ -56,6 +60,28 @@ namespace VaultViewer.UI
         private void ShowUserData(object sender, RoutedEventArgs e)
         {
             UserData.Visibility = Visibility.Visible;
+            try
+            {
+                using (var conn = DatabaseConfig.GetConnection())
+                {
+                    conn.Open();
+                    // do stuff w connection
+                    MessageBox.Show("Connected to db!"); // Working : DDDD
+                    MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn);
+                    MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+                    DataSet dataset_customers = new DataSet();
+                    adp.Fill(dataset_customers, "LoadDataBinding");
+                    // Bind to DataGrid
+                    UserData.ItemsSource = dataset_customers.Tables["LoadDataBinding"]?.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
+        
+    
+
