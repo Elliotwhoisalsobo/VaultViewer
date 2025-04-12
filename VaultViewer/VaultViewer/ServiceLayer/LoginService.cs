@@ -9,6 +9,7 @@ using BCrypt.Net;
 using System.Security.Cryptography.X509Certificates;
 using VaultViewer.UI;
 using Org.BouncyCastle.Asn1.X509;
+using System.Configuration;
 
 
 namespace VaultViewer.ServiceLayer
@@ -16,7 +17,11 @@ namespace VaultViewer.ServiceLayer
     public class LoginService
     {
         // db connection
-        private string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root";
+        MySqlConnection conn = new
+        MySqlConnection(ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString);
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString; // Non hardcoded connectionstring : D
+        //public string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root"; // remove hardcode
+
 
        // check if connectionstring is valid or not.
         public bool TestConnection()
@@ -125,7 +130,8 @@ namespace VaultViewer.ServiceLayer
             EmptyUsernameAndPassword,
             UsernameTooShort,
             PasswordTooShort,
-            EmployeeNotFound
+            EmployeeNotFound,
+            UserAlreadyExists // not yet implemented
         }
         // Helper method to validate userinput:
         InputValidationResult ValidateUserInput(string username, string password, int employeeId)
@@ -142,6 +148,8 @@ namespace VaultViewer.ServiceLayer
                 return InputValidationResult.PasswordTooShort;
             if (employeeId == -1)
                 return InputValidationResult.EmployeeNotFound;
+            //if (username == already in employeeLogin)
+            //return InputValidationResult.UserAlreadyExists;
 
             return InputValidationResult.Valid;
         }
@@ -202,6 +210,8 @@ namespace VaultViewer.ServiceLayer
 
                     case InputValidationResult.Valid:
                         break;
+
+                        // user already exists
                 }   
 
                 // Step 3: Insert the new user login with the associated EmployeeID
@@ -219,6 +229,11 @@ namespace VaultViewer.ServiceLayer
         }
     }
 }
+// create method to assign role(s) to certain customers? (for admin panel)
+
+
+
+
 // Retrieve a user's roles
 /* SELECT r.name
 FROM

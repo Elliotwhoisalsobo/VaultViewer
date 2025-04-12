@@ -52,5 +52,10 @@ namespace VaultViewer.UI
             lw.Show();
             this.Close();
         }
+
+        private void ShowUserData(object sender, RoutedEventArgs e)
+        {
+            UserData.Visibility = Visibility.Visible;
+        }
     }
 }
