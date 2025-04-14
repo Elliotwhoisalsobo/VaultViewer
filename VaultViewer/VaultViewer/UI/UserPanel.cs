@@ -136,7 +136,7 @@ namespace VaultViewer.UI
                     conn.Open();
                     // do stuff w connection
                     MessageBox.Show("Connected to db!"); // Working : DDDD
-                    MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn);
+                    MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn); // Change
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_customer = new DataSet();
                     adp.Fill(dataset_customer, "LoadDataBinding");

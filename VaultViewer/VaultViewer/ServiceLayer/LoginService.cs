@@ -163,7 +163,7 @@ namespace VaultViewer.ServiceLayer
                 conn.Open();
 
                 // Check if username == firstname (of employee)
-                string selectEmployeeQuery = "SELECT EmployeeID FROM employee WHERE FirstName = @username LIMIT 1";
+                const string selectEmployeeQuery = "SELECT EmployeeID FROM employee WHERE FirstName = @username LIMIT 1";
                 int employeeId = -1; // no employee found
 
                 using (MySqlCommand selectCmd = new MySqlCommand(selectEmployeeQuery, conn))
@@ -215,7 +215,7 @@ namespace VaultViewer.ServiceLayer
                 }   
 
                 // Step 3: Insert the new user login with the associated EmployeeID
-                string insertQuery = "INSERT INTO employeelogin (UserName, PasswordHash, EmployeeID) VALUES (@username, @passwordhash, @employeeid)";
+                const string insertQuery = "INSERT INTO employeelogin (UserName, PasswordHash, EmployeeID) VALUES (@username, @passwordhash, @employeeid)";
                 using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@username", username);

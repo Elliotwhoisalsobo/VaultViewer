@@ -59,8 +59,8 @@ namespace VaultViewer.UI
         private void BtnCreateUser(object sender, RoutedEventArgs e)
         {
             var database = new LoginService();
-            string Username = txt_input_Username.Text;
-            string Password = txt_input_Password.Password;
+            string Username = txt_Username.Text;
+            string Password = txt_Password.Password;
             bool success = database.CreateUser(Username, Password);
 
             if (success)

@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:VaultViewer"
              StartupUri="LoginWindow.xaml"> <!-- MainWindow -->
     <Application.Resources>
-         
+        <DropShadowEffect x:Key="DropShadowEffect" Color="LimeGreen" BlurRadius="20" ShadowDepth="0"/>
     </Application.Resources>
 </Application>

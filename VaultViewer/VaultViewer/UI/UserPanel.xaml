@@ -9,10 +9,10 @@
     <Grid>
         <Button x:Name="Btn_Logout" Visibility="Visible" Content="Logout" Click="BtnLogout" HorizontalAlignment="Left" Margin="725,35,0,0" VerticalAlignment="Top"/>
         <StackPanel Orientation="Horizontal" Margin="0">
-            <Button x:Name="BtnUser" Visibility="Visible" Click="ShowUserData" Content="Appear for User" HorizontalAlignment="Left" Margin="68,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnHR" Visibility="Visible" Click="ShowHRData" Content="Appear for HR" HorizontalAlignment="Left" Margin="68,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnEngineer" Visibility="Visible"  Click="ShowEngineerData" Content="Appear for Engineer" HorizontalAlignment="Left"  Margin="68,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnAdmin" Visibility="Visible"  Click="ShowAdminData" Content="Appear for Admin" HorizontalAlignment="Left" Margin="68,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnUser" Visibility="Visible" Click="ShowUserData" Content="Appear for User" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnHR" Visibility="Visible" Click="ShowHRData" Content="Appear for HR" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnEngineer" Visibility="Visible"  Click="ShowEngineerData" Content="Appear for Engineer" HorizontalAlignment="Left"  Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnAdmin" Visibility="Visible"  Click="ShowAdminData" Content="Appear for Admin" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
         </StackPanel>
 
         <DataGrid x:Name="UserData" Background="LightGray" Visibility="Hidden" IsReadOnly="True"/>
