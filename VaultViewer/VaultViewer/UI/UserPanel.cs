@@ -59,7 +59,7 @@ namespace VaultViewer.UI
 
         private void ShowUserData(object sender, RoutedEventArgs e)
         {
-            UserData.Visibility = Visibility.Visible;
+            UserData.Visibility = Visibility.Visible; // dataGrid
             try
             {
                 using (var conn = DatabaseConfig.GetConnection())
@@ -69,10 +69,79 @@ namespace VaultViewer.UI
                     MessageBox.Show("Connected to db!"); // Working : DDDD
                     MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
-                    DataSet dataset_customers = new DataSet();
-                    adp.Fill(dataset_customers, "LoadDataBinding");
+                    DataSet dataset_customer = new DataSet();
+                    adp.Fill(dataset_customer, "LoadDataBinding");
                     // Bind to DataGrid
-                    UserData.ItemsSource = dataset_customers.Tables["LoadDataBinding"]?.DefaultView;
+                    UserData.ItemsSource = dataset_customer.Tables["LoadDataBinding"]?.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private void ShowHRData(object sender, RoutedEventArgs e)
+        {
+            HRData.Visibility = Visibility.Visible; // DataGrid
+            try
+            {
+                using (var conn = DatabaseConfig.GetConnection())
+                {
+                    conn.Open();
+                    // do stuff w connection
+                    MessageBox.Show("Connected to db!"); // Working : DDDD
+                    MySqlCommand cmd = new MySqlCommand("Select * from employee", conn);
+                    MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+                    DataSet dataset_employee = new DataSet();
+                    adp.Fill(dataset_employee, "LoadDataBinding");
+                    // Bind to DataGrid
+                    HRData.ItemsSource = dataset_employee.Tables["LoadDataBinding"]?.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private void ShowEngineerData(object sender, RoutedEventArgs e)
+        {
+            HRData.Visibility = Visibility.Visible; // DataGrid
+            try
+            {
+                using (var conn = DatabaseConfig.GetConnection())
+                {
+                    conn.Open();
+                    // do stuff w connection
+                    MessageBox.Show("Connected to db!"); // Working : DDDD
+                    MySqlCommand cmd = new MySqlCommand("Select * from product", conn);
+                    MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+                    DataSet dataset_engineer = new DataSet();
+                    adp.Fill(dataset_engineer, "LoadDataBinding");
+                    // Bind to DataGrid
+                    EngineerData.ItemsSource = dataset_engineer.Tables["LoadDataBinding"]?.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private void ShowAdminData(object sender, RoutedEventArgs e)
+        {
+            HRData.Visibility = Visibility.Visible; // DataGrid
+            try
+            {
+                using (var conn = DatabaseConfig.GetConnection())
+                {
+                    conn.Open();
+                    // do stuff w connection
+                    MessageBox.Show("Connected to db!"); // Working : DDDD
+                    MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn);
+                    MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+                    DataSet dataset_customer = new DataSet();
+                    adp.Fill(dataset_customer, "LoadDataBinding");
+                    // Bind to DataGrid
+                    AdminData.ItemsSource = dataset_customer.Tables["LoadDataBinding"]?.DefaultView;
                 }
             }
             catch (Exception ex)

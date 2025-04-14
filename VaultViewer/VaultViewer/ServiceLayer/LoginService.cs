@@ -17,10 +17,9 @@ namespace VaultViewer.ServiceLayer
     public class LoginService
     {
         // db connection
-        MySqlConnection conn = new
-        MySqlConnection(ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString);
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString; // Non hardcoded connectionstring : D
-        //public string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root"; // remove hardcode
+        MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString);
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString; // No hardcoded connectionstring : D
+        //public string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root"; // removed hardcode
 
 
        // check if connectionstring is valid or not.
@@ -101,7 +100,7 @@ namespace VaultViewer.ServiceLayer
                             int employeeId = reader.GetInt32("EmployeeID");
 
                             // Verify password
-                            if (BCrypt.Net.BCrypt.Verify(password, storedHash))
+                            if (BCrypt.Net.BCrypt.Verify(password, storedHash)) // BCrypt --> One-way hashing algorithm
                             {
                                 // password correct, fetch list of roles for user  
                                 roles = GetRoles(employeeId);
@@ -132,6 +131,7 @@ namespace VaultViewer.ServiceLayer
             PasswordTooShort,
             EmployeeNotFound,
             UserAlreadyExists // not yet implemented
+            // add more?
         }
         // Helper method to validate userinput:
         InputValidationResult ValidateUserInput(string username, string password, int employeeId)

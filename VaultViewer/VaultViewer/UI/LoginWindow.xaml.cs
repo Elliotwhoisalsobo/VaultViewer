@@ -25,11 +25,6 @@ namespace VaultViewer.UI
 
         }
 
-        private void hashing()
-        {
-            var database = new LoginService();
-            string hash = database.HashPassword("Password1");
-        }
         private void BtnTestConnection_Click(object sender, RoutedEventArgs e) // click <-- event | sender = what created the event | routedeventargs <-- info of clicker (like role) (rarely used)
         {
             var a = Elliot.ActualHeight;
