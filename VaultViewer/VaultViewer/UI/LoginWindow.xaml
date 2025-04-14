@@ -21,7 +21,7 @@
         <Border Background="#FF002200" BorderBrush="LimeGreen" BorderThickness="2" CornerRadius="15"
                 Padding="20" Width="350" Height="400"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="235">
 
                 <TextBlock Text="VAULT-TEC" FontSize="28" FontWeight="Bold"
                            Foreground="LimeGreen" TextAlignment="Center"
@@ -39,13 +39,12 @@
                         Background="Black" BorderBrush="LimeGreen" BorderThickness="1"
                         Foreground="LimeGreen" Width="120" Margin="0,20,0,5" HorizontalAlignment="Center"/>
 
-                <Button x:Name="create_user" Content="Create User" Click="BtnCreateUser"
+                <Button x:Name="create_user" Content="CREATE USER" Click="BtnCreateUser"
                         Background="Black" BorderBrush="LimeGreen" BorderThickness="1"
                         Foreground="LimeGreen" Width="120" Margin="0,5,0,5" HorizontalAlignment="Center"/>
-
-                <Button x:Name="Elliot" Content="Test db Connection" Click="BtnTestConnection_Click"
-                        Background="Black" BorderBrush="LimeGreen" BorderThickness="1"
-                        Foreground="LimeGreen" Width="150" Margin="20,20,0,0" HorizontalAlignment="Center"/>
+                <Button x:Name="Elliot" Content="TEST DB" Click="BtnTestConnection_Click"
+                        Background="Black" BorderBrush="LimeGreen" Margin="0,5,0,5" BorderThickness="1"
+                        Foreground="LimeGreen" Width="121"/>
             </StackPanel>
         </Border>
 
