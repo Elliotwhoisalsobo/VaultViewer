@@ -5,5 +5,8 @@
              StartupUri="LoginWindow.xaml"> <!-- MainWindow -->
     <Application.Resources>
         <DropShadowEffect x:Key="DropShadowEffect" Color="LimeGreen" BlurRadius="20" ShadowDepth="0"/>
+        <Style x:Key="Terminal">
+            <Setter Property="TextElement.FontFamily" Value="Fonts/#ShareTechMono-Regular"/> <!--NOT WORKING (no idea why)-->
+        </Style>
     </Application.Resources>
 </Application>

@@ -72,6 +72,17 @@ namespace VaultViewer.UI
                 MessageBox.Show("User creation unsuccesfull :(");
             }
         }
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                // If the focused control is a Button, simulate a click event
+                if (Keyboard.FocusedElement is Button button)
+                {
+                    button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                }
+            }
+        }
     }
 }
 

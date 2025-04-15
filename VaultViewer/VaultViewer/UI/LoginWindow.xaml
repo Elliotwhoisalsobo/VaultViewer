@@ -1,12 +1,12 @@
 ﻿<Window x:Class="VaultViewer.UI.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="VAULT-TEC TERMINAL" Height="500" Width="800"
+        Title="VAULT-TEC TERMINAL" Height="750" Width="1200"
         WindowStartupLocation="CenterScreen"
         Background="Black"
         FontFamily="Consolas"
         AllowsTransparency="True"
-        WindowStyle="None">
+        WindowStyle="None" PreviewKeyDown="Window_PreviewKeyDown">
     <Grid>
         <!-- Scanline Background -->
         <Grid.Background>
@@ -17,40 +17,54 @@
             </VisualBrush>
         </Grid.Background>
 
-        <!-- Main Panel -->
-        <Border Background="#FF002200" BorderBrush="LimeGreen" BorderThickness="2" CornerRadius="15"
-                Padding="20" Width="350" Height="400"
+        <!-- Main Background Image -->
+        <Image 
+               Source="/UI/fallout-3-video-games-pip-boy-lines-wallpaper-preview.jpg" Margin="-142,-282,-498,-334"/>
+
+        <!-- Main Panel (Login Form) -->
+        <Border Background="#FF002200" BorderBrush="LimeGreen" BorderThickness="2" CornerRadius="15" 
+                Padding="30" Width="524" Height="600"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="235">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="418">
 
-                <TextBlock Text="VAULT-TEC" FontSize="28" FontWeight="Bold"
+                <TextBlock Text="VAULT-TEC" FontSize="42" FontWeight="Bold" FontFamily="Fonts/#ShareTechMono-Regular"
                            Foreground="LimeGreen" TextAlignment="Center"
-                           Margin="0,0,0,25" HorizontalAlignment="Center"/>
+                           Margin="0,15,0,30" HorizontalAlignment="Center"/>
 
-                <TextBox x:Name="txt_Username" Width="220" Height="30"
+                <!-- Username Input Field -->
+                <TextBox x:Name="txt_Username" Width="330" Height="45"
                          Background="Black" Foreground="LimeGreen"
-                         BorderBrush="LimeGreen" Margin="0,5" HorizontalAlignment="Center"/>
+                         BorderBrush="LimeGreen" Margin="0,8" HorizontalAlignment="Center" IsTabStop="True"/>
 
-                <PasswordBox x:Name="txt_Password" Width="220" Height="30"
+                <!-- Password Input Field -->
+                <PasswordBox x:Name="txt_Password" Width="330" Height="45"
                              Background="Black" Foreground="LimeGreen"
-                             BorderBrush="LimeGreen" Margin="0,5" HorizontalAlignment="Center"/>
+                             BorderBrush="LimeGreen" Margin="0,8" HorizontalAlignment="Center" IsTabStop="True"/>
 
-                <Button x:Name="Authenticate" Content="LOGIN" Click="BtnAuthenticate"
+                <!-- Login Button -->
+                <Button x:Name="Authenticate" Content="LOGIN" Click="BtnAuthenticate"  
                         Background="Black" BorderBrush="LimeGreen" BorderThickness="1"
-                        Foreground="LimeGreen" Width="120" Margin="0,20,0,5" HorizontalAlignment="Center"/>
+                        Foreground="LimeGreen" Width="180" Height="45" Margin="0,30,0,8" HorizontalAlignment="Center" IsTabStop="True"/>
 
+                <!-- Create User Button -->
                 <Button x:Name="create_user" Content="CREATE USER" Click="BtnCreateUser"
                         Background="Black" BorderBrush="LimeGreen" BorderThickness="1"
-                        Foreground="LimeGreen" Width="120" Margin="0,5,0,5" HorizontalAlignment="Center"/>
+                        Foreground="LimeGreen" Width="180" Height="45" Margin="0,8,0,8" HorizontalAlignment="Center" IsTabStop="True"/>
+
+                <!-- Test DB Button -->
                 <Button x:Name="Elliot" Content="TEST DB" Click="BtnTestConnection_Click"
-                        Background="Black" BorderBrush="LimeGreen" Margin="0,5,0,5" BorderThickness="1"
-                        Foreground="LimeGreen" Width="121"/>
+                        Background="Black" BorderBrush="LimeGreen" Margin="0,8,0,8" BorderThickness="1"
+                        Foreground="LimeGreen" Width="181" Height="45" IsTabStop="True"/>
             </StackPanel>
         </Border>
 
-        <!-- Exit Button (top right corner) (closeapp not implemented yet)--> 
-        <Button Content="✖" Width="20" Height="20" Background="Transparent" BorderThickness="0"
-                Foreground="LightGreen" FontWeight="Bold" FontSize="14"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,10,0"/>
+        <!-- Exit Button (Top Right Corner) -->
+        <Button Content="✖" Width="30" Height="30" Background="Transparent" BorderThickness="0"
+                Foreground="LightGreen" FontWeight="Bold" FontSize="18"
+                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0"/>
+
+        <!-- Icon (Centered) -->
+        <Image HorizontalAlignment="Center" VerticalAlignment="Top" Height="86" Margin="0,94,0,0" Width="150" 
+               Source="/UI/icon.png"/>
     </Grid>
 </Window>
