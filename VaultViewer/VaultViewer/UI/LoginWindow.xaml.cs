@@ -83,6 +83,10 @@ namespace VaultViewer.UI
                 }
             }
         }
+        private void exit_button(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
 

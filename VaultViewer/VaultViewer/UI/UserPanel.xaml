@@ -6,19 +6,67 @@
         xmlns:local="clr-namespace:VaultViewer.UI"
         mc:Ignorable="d"
         Title="UserPanel" Height="450" Width="800">
+    <Window.Resources>
+        <!-- Fallout Terminal Style for DataGrid -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="LimeGreen"/>
+            <Setter Property="BorderBrush" Value="LimeGreen"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="LimeGreen"/>
+            <Setter Property="VerticalGridLinesBrush" Value="LimeGreen"/>
+            <Setter Property="RowBackground" Value="Black"/>
+            <Setter Property="AlternatingRowBackground" Value="#FF004400"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Fallout Terminal Style for DataGrid Column Headers -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="LimeGreen"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="LimeGreen"/>
+        </Style>
+
+        <!-- Fallout Terminal Style for DataGrid Row -->
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="LimeGreen"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="BorderBrush" Value="LimeGreen"/>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        <Button x:Name="Btn_Logout" Visibility="Visible" Content="Logout" Click="BtnLogout" HorizontalAlignment="Left" Margin="725,35,0,0" VerticalAlignment="Top"/>
+        <!-- Logout Button -->
+        <Button x:Name="Btn_Logout" Content="Logout" Click="BtnLogout" HorizontalAlignment="Right" Margin="0,35,20,0" VerticalAlignment="Top" Width="75"/>
+
+        <!-- Role Buttons (User, HR, Engineer, Admin) -->
         <StackPanel Orientation="Horizontal" Margin="0">
-            <Button x:Name="BtnUser" Visibility="Visible" Click="ShowUserData" Content="Appear for User" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnHR" Visibility="Visible" Click="ShowHRData" Content="Appear for HR" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnEngineer" Visibility="Visible"  Click="ShowEngineerData" Content="Appear for Engineer" HorizontalAlignment="Left"  Margin="75,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnAdmin" Visibility="Visible"  Click="ShowAdminData" Content="Appear for Admin" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnUser" Visibility="Hidden" Click="ShowUserData" Content="Appear for User" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnHR" Visibility="Hidden" Click="ShowHRData" Content="Appear for HR" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnEngineer" Visibility="Hidden"  Click="ShowEngineerData" Content="Appear for Engineer" HorizontalAlignment="Left"  Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnAdmin" Visibility="Hidden"  Click="ShowAdminData" Content="Appear for Admin" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
         </StackPanel>
 
-        <DataGrid x:Name="UserData" Background="LightGray" Visibility="Hidden" IsReadOnly="True"/>
-        <DataGrid x:Name="HRData" Background="LightGray" Visibility="Hidden" IsReadOnly="True"/>
-        <DataGrid x:Name="EngineerData" Background="LightGray" Visibility="Hidden" IsReadOnly="True"/>
-        <DataGrid x:Name="AdminData" Background="LightGray" Visibility="Hidden" IsReadOnly="True"/> <!--Remove later perhaps? (admin = all buttons visible might be better-->
-
+        <!-- Data Grids with Fallout Style -->
+        <DataGrid x:Name="UserData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,10"/>
+        <DataGrid x:Name="HRData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,10"/>
+        <DataGrid x:Name="EngineerData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,10"/>
+        <DataGrid x:Name="AdminData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,10"/>
     </Grid>
 </Window>

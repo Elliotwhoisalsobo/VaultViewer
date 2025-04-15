@@ -19,7 +19,7 @@
 
         <!-- Main Background Image -->
         <Image 
-               Source="/UI/fallout-3-video-games-pip-boy-lines-wallpaper-preview.jpg" Margin="-142,-282,-498,-334"/>
+               Source="/UI/fallout-video-games-simple-minimalism-stripes-wallpaper-preview.jpg" Margin="-84,-110,-132,-110"/>
 
         <!-- Main Panel (Login Form) -->
         <Border Background="#FF002200" BorderBrush="LimeGreen" BorderThickness="2" CornerRadius="15" 
@@ -32,12 +32,12 @@
                            Margin="0,15,0,30" HorizontalAlignment="Center"/>
 
                 <!-- Username Input Field -->
-                <TextBox x:Name="txt_Username" Width="330" Height="45"
+                <TextBox x:Name="txt_Username" Width="330" Height="45" FontSize="28"
                          Background="Black" Foreground="LimeGreen"
                          BorderBrush="LimeGreen" Margin="0,8" HorizontalAlignment="Center" IsTabStop="True"/>
 
                 <!-- Password Input Field -->
-                <PasswordBox x:Name="txt_Password" Width="330" Height="45"
+                <PasswordBox x:Name="txt_Password" Width="330" Height="45" FontSize="28"
                              Background="Black" Foreground="LimeGreen"
                              BorderBrush="LimeGreen" Margin="0,8" HorizontalAlignment="Center" IsTabStop="True"/>
 
@@ -61,7 +61,7 @@
         <!-- Exit Button (Top Right Corner) -->
         <Button Content="✖" Width="30" Height="30" Background="Transparent" BorderThickness="0"
                 Foreground="LightGreen" FontWeight="Bold" FontSize="18"
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0"/>
+                Click="exit_button" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,15,15,0"/>
 
         <!-- Icon (Centered) -->
         <Image HorizontalAlignment="Center" VerticalAlignment="Top" Height="86" Margin="0,94,0,0" Width="150" 
