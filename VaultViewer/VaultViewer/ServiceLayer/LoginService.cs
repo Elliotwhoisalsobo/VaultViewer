@@ -130,9 +130,18 @@ namespace VaultViewer.ServiceLayer
             UsernameTooShort,
             PasswordTooShort,
             EmployeeNotFound,
-            UserAlreadyExists // not yet implemented
-            // add more?
+            UserAlreadyExists, // not yet implemented
+            InvaliddatabaseConnection // not yet implemented
         }
+
+        // Helper method getuser for useralreadyexists case:
+        private bool UserExists(string username)
+        {
+            // employeeLogin
+            if username is in 
+        }
+
+
         // Helper method to validate userinput:
         InputValidationResult ValidateUserInput(string username, string password, int employeeId)
         {

@@ -86,6 +86,20 @@ namespace VaultViewer.UI
         private void exit_button(object sender, RoutedEventArgs e)
         {
             this.Close();
+            
+        }
+
+        // Esc = close window : )
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            if(e.Key == Key.Escape) 
+            {
+                exit_button(null, e);
+            }
+
+
         }
     }
 }
