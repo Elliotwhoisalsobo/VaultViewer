@@ -24,6 +24,8 @@ namespace VaultViewer.UI
             SetUpUIBasedOnRoles();
         }
 
+
+
         // Group buttons together 
         private List<Button> GroupOfButtons()
         {
@@ -33,8 +35,20 @@ namespace VaultViewer.UI
             BtnHR,
             BtnEngineer,
             BtnAdmin
-        };
+            };
             return groupOfButtons;
+        }
+
+        private List<DataGrid> GroupOfDatagrids()
+        {
+            List<DataGrid> groupOfDatagrids = new List<DataGrid>
+            {
+            UserData,
+            HRData,
+            EngineerData,
+            AdminData
+            };
+            return groupOfDatagrids;
         }
 
         // This method can be used to modify the UI based on roles
@@ -74,6 +88,12 @@ namespace VaultViewer.UI
 
         private void ShowUserData(object sender, RoutedEventArgs e)
         {
+            // Remove previously displayed datagrids
+            foreach (var datagrid in GroupOfDatagrids())
+            {
+                datagrid.Visibility = Visibility.Hidden;
+            }
+
             UserData.Visibility = Visibility.Visible; // dataGrid
             try
             {
@@ -97,6 +117,12 @@ namespace VaultViewer.UI
         }
         private void ShowHRData(object sender, RoutedEventArgs e)
         {
+            
+            foreach (var datagrid in GroupOfDatagrids())
+            {
+                datagrid.Visibility = Visibility.Hidden;
+            }
+
             HRData.Visibility = Visibility.Visible; // DataGrid
             try
             {
@@ -120,6 +146,11 @@ namespace VaultViewer.UI
         }
         private void ShowEngineerData(object sender, RoutedEventArgs e)
         {
+            foreach (var datagrid in GroupOfDatagrids())
+            {
+                datagrid.Visibility = Visibility.Hidden;
+            }
+
             EngineerData.Visibility = Visibility.Visible; // DataGrid
             try
             {
@@ -143,6 +174,11 @@ namespace VaultViewer.UI
         }
         private void ShowAdminData(object sender, RoutedEventArgs e)
         {
+            foreach (var datagrid in GroupOfDatagrids())
+            {
+                datagrid.Visibility = Visibility.Hidden;
+            }
+
             HRData.Visibility = Visibility.Visible; // DataGrid
             try
             {
