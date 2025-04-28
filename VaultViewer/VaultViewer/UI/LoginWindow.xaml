@@ -67,5 +67,16 @@
         <!-- Icon (Centered) -->
         <Image x:Name="Logo_Vault_Tec" HorizontalAlignment="Left" VerticalAlignment="Top" Height="119" Margin="498,109,0,0" Width="224" 
                Source="/UI/Pictures/icon.png" Stretch="UniformToFill"/>
+        
+        <!-- Popup -->
+        <Popup x:Name="AdminPopup" StaysOpen="False" Placement="Center" IsOpen="False" Visibility="Visible">
+            <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Choose between UserPanel and AdminPanel:" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                    <Button Content="UserPanel" Click="BtnOpenUserPanel" Margin="5"/>
+                    <Button Content="AdminPanel" Click="BtnOpenAdminPanel" Margin="5"/>
+                </StackPanel>
+            </Border>
+        </Popup>
     </Grid>
 </Window>

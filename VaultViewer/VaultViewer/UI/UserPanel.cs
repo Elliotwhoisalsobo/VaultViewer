@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 using VaultViewer.ServiceLayer;
 using VaultViewer.DataAccessLayer;
 using System.Data;
+using System.Windows.Controls;
 
 namespace VaultViewer.UI
 {
@@ -21,6 +22,19 @@ namespace VaultViewer.UI
 
             // Set up the UI based on user roles
             SetUpUIBasedOnRoles();
+        }
+
+        // Group buttons together 
+        private List<Button> GroupOfButtons()
+        {
+            List<Button> groupOfButtons = new List<Button>
+            {
+            BtnUser,
+            BtnHR,
+            BtnEngineer,
+            BtnAdmin
+        };
+            return groupOfButtons;
         }
 
         // This method can be used to modify the UI based on roles
@@ -42,9 +56,11 @@ namespace VaultViewer.UI
                 }
                 if (role == "Admin")
                 {
-                    // Add all buttons visible (group) thingy?
-                    BtnAdmin.Visibility = Visibility.Visible;
-
+                    // Effiecency : D
+                    foreach (var button in GroupOfButtons())
+                    {
+                        button.Visibility = Visibility.Visible;
+                    }
                 }
             }
         }
