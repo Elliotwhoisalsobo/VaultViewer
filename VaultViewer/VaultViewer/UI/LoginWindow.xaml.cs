@@ -72,6 +72,11 @@ namespace VaultViewer.UI
                 MessageBox.Show("User creation unsuccesfull :(");
             }
         }
+
+
+
+        // Key stuff
+        // Esc = close window methods
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -89,7 +94,6 @@ namespace VaultViewer.UI
             
         }
 
-        // Esc = close window : )
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);

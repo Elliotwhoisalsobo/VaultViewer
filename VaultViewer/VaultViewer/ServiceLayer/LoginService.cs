@@ -135,11 +135,11 @@ namespace VaultViewer.ServiceLayer
         }
 
         // Helper method getuser for useralreadyexists case:
-        private bool UserExists(string username)
-        {
-            // employeeLogin
-            if username is in 
-        }
+        //private bool UserExists(string username)
+        //{
+        //    // employeeLogin
+        //    if username is in 
+        //}
 
 
         // Helper method to validate userinput:

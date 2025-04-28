@@ -10,6 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="UI\Pictures\fallout-video-games-simple-minimalism-stripes-wallpaper-preview.jpg" />
+    <None Remove="UI\Pictures\icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="DevExpressMvvm" Version="24.1.6" />
     <PackageReference Include="MySql.Data" Version="9.2.0" />
@@ -17,7 +22,11 @@
 
   <ItemGroup>
     <Folder Include="UI\Fonts\" />
-    <Folder Include="UI\Pictures\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="UI\Pictures\fallout-video-games-simple-minimalism-stripes-wallpaper-preview.jpg" />
+    <Resource Include="UI\Pictures\icon.png" />
   </ItemGroup>
 
 </Project>

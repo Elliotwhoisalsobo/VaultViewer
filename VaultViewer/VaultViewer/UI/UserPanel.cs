@@ -28,25 +28,24 @@ namespace VaultViewer.UI
         {
             foreach (var role in _userRoles)
             {
-                if (role == "Admin")
-                {
-                    // Show admin buttons or features
-                    BtnAdmin.Visibility = Visibility.Visible;
-                }
                 if (role == "Default")
                 {
-                    // Show user-specific buttons or features
                     BtnUser.Visibility = Visibility.Visible;
                 }
                 if (role == "HR")
                 {
                     BtnHR.Visibility = Visibility.Visible;
                 }
-                if (role == "Engineer")
+                if (role == "Engineering")
                 {
-                    BtnUser.Visibility = Visibility.Visible;
+                    BtnEngineer.Visibility = Visibility.Visible;
                 }
-                // Add more role-based conditions as needed
+                if (role == "Admin")
+                {
+                    // Add all buttons visible (group) thingy?
+                    BtnAdmin.Visibility = Visibility.Visible;
+
+                }
             }
         }
 
@@ -105,7 +104,7 @@ namespace VaultViewer.UI
         }
         private void ShowEngineerData(object sender, RoutedEventArgs e)
         {
-            HRData.Visibility = Visibility.Visible; // DataGrid
+            EngineerData.Visibility = Visibility.Visible; // DataGrid
             try
             {
                 using (var conn = DatabaseConfig.GetConnection())
