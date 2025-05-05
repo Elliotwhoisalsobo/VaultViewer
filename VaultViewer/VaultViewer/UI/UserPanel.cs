@@ -70,7 +70,7 @@ namespace VaultViewer.UI
                 }
                 if (role == "Admin")
                 {
-                    // Effiecency : D
+                    // Efficencie : D
                     foreach (var button in GroupOfButtons())
                     {
                         button.Visibility = Visibility.Visible;
@@ -179,20 +179,20 @@ namespace VaultViewer.UI
                 datagrid.Visibility = Visibility.Hidden;
             }
 
-            HRData.Visibility = Visibility.Visible; // DataGrid
+            AdminData.Visibility = Visibility.Visible; // DataGrid
             try
-            {
+            { 
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
                     // do stuff w connection
-                    MessageBox.Show("Connected to db!"); // Working : DDDD
-                    MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn); // Change
+                    MessageBox.Show("Connected to db!"); 
+                    MySqlCommand cmd = new MySqlCommand("Select * from employeelogin", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
-                    DataSet dataset_customer = new DataSet();
-                    adp.Fill(dataset_customer, "LoadDataBinding");
+                    DataSet dataset_admin = new DataSet();
+                    adp.Fill(dataset_admin, "LoadDataBinding");
                     // Bind to DataGrid
-                    AdminData.ItemsSource = dataset_customer.Tables["LoadDataBinding"]?.DefaultView;
+                    AdminData.ItemsSource = dataset_admin.Tables["LoadDataBinding"]?.DefaultView;
                 }
             }
             catch (Exception ex)

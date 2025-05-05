@@ -62,24 +62,20 @@ namespace VaultViewer.UI
 
             bool success = database.Authenticate(Username, Password, out List<string> userRoles);
 
-            if (success)
+            if (success && Username == "admin")
+            {
+                MessageBox.Show("Admin login succesfull.");
+                AdminPopup.IsOpen = true;
+                //this.Close(); // Current instance of loginwindow
+            }
+
+            else if (success)
             {
                 MessageBox.Show("UserLogin successfull.");
 
-                // Add popup to choose between UserPanel and AdminWindow
-                AdminPopup.IsOpen = true;
-                //UserPanel userpanel = new UserPanel(userRoles);
-                //userpanel.Show();
-                //this.Close();
-            }
-
-            else if (success && Username == "admin")
-                {
-                MessageBox.Show("Admin login succesfull.");
-                // UI logic here (no UI logic in servicelayer)
                 UserPanel userpanel = new UserPanel(userRoles);
                 userpanel.Show();
-                this.Close(); // Current instance of loginwindow
+                this.Close();
             }
 
             else
