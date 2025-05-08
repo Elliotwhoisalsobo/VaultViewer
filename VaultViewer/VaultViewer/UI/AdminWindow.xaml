@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="AdminWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button x:Name="CreateEmployeeBtn" Content="Add employee" HorizontalAlignment="Left" Margin="423,217,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="DeleteEmployeeBtn_Copy" Content="Delete employee" HorizontalAlignment="Left" Margin="423,264,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="EmployeeListBox"  d:ItemsSource="{d:SampleData ItemCount=5}"  Margin="290,200,400,122"/>  <!--SelectionChanged="" DisplayMemberPath="" IsSynchronizedWithCurrentItem="True"-->
+
     </Grid>
 </Window>

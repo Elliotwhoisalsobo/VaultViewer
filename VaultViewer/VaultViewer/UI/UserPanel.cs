@@ -94,19 +94,29 @@ namespace VaultViewer.UI
                 datagrid.Visibility = Visibility.Hidden;
             }
 
+
+            // Put this into a list later
+            BtnFilter.Visibility = Visibility.Visible;
+            BtnSort.Visibility = Visibility.Visible;
+            BtnExport.Visibility = Visibility.Visible; 
+
+
             UserData.Visibility = Visibility.Visible; // dataGrid
             try
             {
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    // do stuff w connection
+                    // establishing connection to DB
                     MessageBox.Show("Connected to db!"); // Working : DDDD
                     MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn);
+                    // Filling up dataset with data from DB
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_customer = new DataSet();
                     adp.Fill(dataset_customer, "LoadDataBinding");
-                    // Bind to DataGrid
+                    
+                    
+                    // Binding DB to DataGrid (to display said data)
                     UserData.ItemsSource = dataset_customer.Tables["LoadDataBinding"]?.DefaultView;
                 }
             }
@@ -200,6 +210,30 @@ namespace VaultViewer.UI
                 MessageBox.Show(ex.ToString());
             }
         }
+        /*
+        private void FilterData(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                
+            }
+        }
+
+        private void OrderData(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+        }
+
+        private void ExportData(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+        }*/
     }
 }
         

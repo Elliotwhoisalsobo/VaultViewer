@@ -56,7 +56,7 @@
         <Button x:Name="Btn_Logout" Content="Logout" Click="BtnLogout" HorizontalAlignment="Right" Margin="0,35,20,0" VerticalAlignment="Top" Width="75"/>
 
         <!-- Role Buttons (User, HR, Engineer, Admin) -->
-        <StackPanel Orientation="Horizontal" Margin="0">
+        <StackPanel x:Name="DataViewingStack" Orientation="Horizontal" Margin="0">
             <Button x:Name="BtnUser" Visibility="Hidden" Click="ShowUserData" Content="Appear for User" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
             <Button x:Name="BtnHR" Visibility="Hidden" Click="ShowHRData" Content="Appear for HR" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
             <Button x:Name="BtnEngineer" Visibility="Hidden"  Click="ShowEngineerData" Content="Appear for Engineer" HorizontalAlignment="Left"  Margin="75,162,0,0" VerticalAlignment="Top"/>
@@ -64,9 +64,15 @@
         </StackPanel>
 
         <!-- Data Grids with Fallout Style -->
-        <DataGrid x:Name="UserData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,10"/>
-        <DataGrid x:Name="HRData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,10"/>
-        <DataGrid x:Name="EngineerData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,10"/>
-        <DataGrid x:Name="AdminData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,10"/>
+        <DataGrid x:Name="UserData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
+        <DataGrid x:Name="HRData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
+        <DataGrid x:Name="EngineerData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
+        <DataGrid x:Name="AdminData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
+
+        <StackPanel x:Name="SortingAndFilteringStack" Orientation="Horizontal" Margin="0">
+            <Button x:Name="BtnSort" Visibility="Hidden" Content="Sort" VerticalAlignment="Bottom" Margin="15,0,0,25" Width="45" />
+            <Button x:Name="BtnFilter" Visibility="Hidden" Content="Filter" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="45" />
+            <Button x:Name="BtnExport" Visibility="Hidden" Content="Export" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="45" />
+        </StackPanel>
     </Grid>
 </Window>
