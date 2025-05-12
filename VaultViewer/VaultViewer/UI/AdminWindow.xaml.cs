@@ -23,21 +23,28 @@ namespace VaultViewer.UI
     /// </summary>
     public partial class AdminWindow : Window
     {
+        protected class EmployeeViewData
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
         public AdminWindow()
         {
             InitializeComponent();
         }
 
         // helper functions:
-        private DataTable GetEmployeesDataTable()
+        private void GetEmployeesDataTable()
         {
+
             var dataTable = new DataTable();
             try
             {
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("SELECT ID, Name FROM customer", conn);
+                    MySqlCommand cmd = new MySqlCommand("SELECT EmployeeID, FirstName, LastName FROM employee WHERE IsDeleted = 0", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     adp.Fill(dataTable);
                 }
@@ -47,19 +54,38 @@ namespace VaultViewer.UI
                 MessageBox.Show(ex.ToString());
             }
 
-            return dataTable;
+            var items = dataTable.Rows.Cast<DataRow>().Select(x => new EmployeeViewData { Id = x.Field<int>("EmployeeID"), Name = $"{x.Field<string>("FirstName")} {x.Field<string>("LastName")}" });
+            
+            EmployeeListBox.ItemsSource = items; // list of box items
         }
 
-        private void DeleteUser(int userId)
+
+        private void DeleteEmployee(object sender, RoutedEventArgs e)
+        {
+            //var emplyee1 = (EmployeeViewData)EmployeeListBox.SelectedItem;
+            var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
+            if (employee == null)
+            {
+                MessageBox.Show("Is null");
+                return;
+            }
+            DeleteUser(employee.Id);
+            GetEmployeesDataTable();
+        }
+
+
+
+        private void DeleteUser(int EmployeeID)
         {
             try
             {
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    string query = "DELETE FROM customer WHERE ID = @id";
+                    //string query = "DELETE FROM employee WHERE EmployeeID = @EmployeeID";
+                    string query = "UPDATE employee SET IsDeleted = 1 WHERE EmployeeID = @EmployeeID";
                     MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@id", userId);
+                    cmd.Parameters.AddWithValue("@EmployeeID", EmployeeID);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -71,22 +97,17 @@ namespace VaultViewer.UI
 
         private void ShowEmployees(object sender, RoutedEventArgs e)
         {
-            EmployeeListBox.ItemsSource = GetEmployeesDataTable().DefaultView;
+            EmployeeListBox.Visibility = Visibility.Visible;
+            DeleteEmployeeBtn.Visibility = Visibility.Visible;
+            GetEmployeesDataTable();
+            //EmployeeListBox.ItemsSource = GetEmployeesDataTable().DefaultView; // Results in an ERROR "id not found"
         }
+
+
         private void EmployeeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (EmployeeListBox.SelectedItem is DataRowView selectedRow)
-            {
-                string name = selectedRow["Name"].ToString();
-                int id = Convert.ToInt32(selectedRow["ID"]); // assuming ID is available
-
-                var confirm = MessageBox.Show($"Delete {name}?", "Confirm", MessageBoxButton.YesNo);
-                if (confirm == MessageBoxResult.Yes)
-                {
-                    DeleteUser(id);
-                    EmployeeListBox.ItemsSource = GetEmployeesDataTable().DefaultView; // Refresh
-                }
-            }
+            //EmployeeListBox.SelectedItem = 
+            var a = 1;
         }
     }
 }

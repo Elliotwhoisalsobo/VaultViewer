@@ -18,7 +18,7 @@ namespace VaultViewer.ServiceLayer
     {
         // db connection
         MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString);
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString; // No hardcoded connectionstring : D
+        private string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString; // No hardcoded connectionstring : D // readonly
         //public string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root"; // removed hardcode
 
 

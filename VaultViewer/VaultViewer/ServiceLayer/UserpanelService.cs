@@ -5,45 +5,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VaultViewer.ServiceLayer;
+using VaultViewer.Business;
+using VaultViewer.DataAccessLayer;
+using System.Configuration;
+using System.Windows.Controls;
+using System.IO;
+
 //using DevExpress.Mvvm; // external library
 namespace VaultViewer.ServiceLayer
 {
     public class UserpanelService
     {
-        // add main dataviewing functions here
-        //public class Employee
-        //{
-        //    public int EmployeeId { get; set; }
-        //    public string? FirstName { get; set; }
-        //    public string? LastName { get; set; }
-        //    // Add more fields as needed
-        //}
-        //public List<Employee> GetAllEmployees()
-        //{
-        //    List<Employee> employees = new List<Employee>();
-        //    var loginService = new LoginService();
 
-        //    using (var conn = new MySqlConnection(connectionString)) // why tf is this not recognaised?
-        //    {
-        //        conn.Open();
-        //        string query = "SELECT EmployeeID, FirstName, LastName FROM employee";
-        //        using (var cmd = new MySqlCommand(query, conn))
-        //        using (var reader = cmd.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                employees.Add(new Employee
-        //                {
-        //                    EmployeeId = reader.GetInt32("EmployeeID"),
-        //                    FirstName = reader.GetString("FirstName"),
-        //                    LastName = reader.GetString("LastName")
-        //                });
-        //            }
-        //        }
-        //    }
+        // Get data from datagrid
+        public IEnumerable<Customer> GetCustomersFromDataGrid(DataGrid dataGrid)
+        {
+            return dataGrid.ItemsSource.Cast<Customer>();
+        }
 
-        //    return employees;
-  //      }
 
+        // Placeholders
+        public IEnumerable<Customer> GetConnectionString()
+        {
+            throw new NotImplementedException();
+            //return connectionString;
+        }
+
+        public IEnumerable<Customer> GetCustomers(IEnumerable<Customer> list_customers) // IEnumerable 1 = return type | 2 = parameter
+        {
+            //throw new NotImplementedException();
+            return list_customers;
+        }
+
+
+
+        public IEnumerable<Employee> GetEmployees(IEnumerable<Employee> list_employees)
+        {
+            // throw new NotImplementedException();
+            return list_employees;
+            
+            //return MySqlConnection.GetEmployees(); // _ = object of sqlrepos
+        }
+
+        }
     }
-}
+

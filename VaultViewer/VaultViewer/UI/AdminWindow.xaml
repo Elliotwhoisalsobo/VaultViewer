@@ -8,8 +8,24 @@
         Title="AdminWindow" Height="450" Width="800">
     <Grid>
         <Button x:Name="CreateEmployeeBtn" Content="Add employee" HorizontalAlignment="Left" Margin="423,217,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="DeleteEmployeeBtn_Copy" Content="Delete employee" HorizontalAlignment="Left" Margin="423,264,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="EmployeeListBox"  d:ItemsSource="{d:SampleData ItemCount=5}"  Margin="290,200,400,122"/>  <!--SelectionChanged="" DisplayMemberPath="" IsSynchronizedWithCurrentItem="True"-->
+        <Button x:Name="ViewEmployeesBtn" Content="View employees" HorizontalAlignment="Left" Click="ShowEmployees" Margin="423,264,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="DeleteEmployeeBtn" Content="Delete employee" HorizontalAlignment="Left" Visibility="Hidden" Click="DeleteEmployee" Margin="240,361,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="EmployeeListBox" Visibility="Hidden" Margin="198,175,410,89" SelectionChanged="EmployeeListBox_SelectionChanged">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+        <Button x:Name="Btnemployeeofmonth" Content="Select employee of the month" HorizontalAlignment="Left" Margin="382,132,0,0" VerticalAlignment="Top"/>
+        <!--SelectionChanged="" DisplayMemberPath="" IsSynchronizedWithCurrentItem="True"-->
 
     </Grid>
 </Window>

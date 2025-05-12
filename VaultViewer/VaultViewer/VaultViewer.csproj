@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DataAccessLayer\Data\" />
     <Folder Include="UI\Fonts\" />
   </ItemGroup>
 

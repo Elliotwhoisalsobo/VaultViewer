@@ -7,6 +7,9 @@ using VaultViewer.ServiceLayer;
 using VaultViewer.DataAccessLayer;
 using System.Data;
 using System.Windows.Controls;
+using VaultViewer.Business;
+using System.IO;
+using System.Text;
 
 namespace VaultViewer.UI
 {
@@ -31,7 +34,7 @@ namespace VaultViewer.UI
         {
             List<Button> groupOfButtons = new List<Button>
             {
-            BtnUser,
+            BtnEmployee,
             BtnHR,
             BtnEngineer,
             BtnAdmin
@@ -43,7 +46,7 @@ namespace VaultViewer.UI
         {
             List<DataGrid> groupOfDatagrids = new List<DataGrid>
             {
-            UserData,
+            EmployeeData,
             HRData,
             EngineerData,
             AdminData
@@ -58,7 +61,7 @@ namespace VaultViewer.UI
             {
                 if (role == "Default")
                 {
-                    BtnUser.Visibility = Visibility.Visible;
+                    BtnEmployee.Visibility = Visibility.Visible;
                 }
                 if (role == "HR")
                 {
@@ -86,7 +89,7 @@ namespace VaultViewer.UI
             this.Close();
         }
 
-        private void ShowUserData(object sender, RoutedEventArgs e)
+        private void ShowEmployeeData(object sender, RoutedEventArgs e)
         {
             // Remove previously displayed datagrids
             foreach (var datagrid in GroupOfDatagrids())
@@ -101,7 +104,7 @@ namespace VaultViewer.UI
             BtnExport.Visibility = Visibility.Visible; 
 
 
-            UserData.Visibility = Visibility.Visible; // dataGrid
+            EmployeeData.Visibility = Visibility.Visible; // dataGrid
             try
             {
                 using (var conn = DatabaseConfig.GetConnection())
@@ -112,12 +115,12 @@ namespace VaultViewer.UI
                     MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn);
                     // Filling up dataset with data from DB
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
-                    DataSet dataset_customer = new DataSet();
-                    adp.Fill(dataset_customer, "LoadDataBinding");
+                    DataSet dataset_employeeData = new DataSet();
+                    adp.Fill(dataset_employeeData, "LoadDataBinding");
                     
                     
                     // Binding DB to DataGrid (to display said data)
-                    UserData.ItemsSource = dataset_customer.Tables["LoadDataBinding"]?.DefaultView;
+                    EmployeeData.ItemsSource = dataset_employeeData.Tables["LoadDataBinding"]?.DefaultView;
                 }
             }
             catch (Exception ex)
@@ -210,8 +213,8 @@ namespace VaultViewer.UI
                 MessageBox.Show(ex.ToString());
             }
         }
-        /*
-        private void FilterData(object sender, RoutedEventArgs e)
+        
+        /*private void FilterData(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -225,15 +228,61 @@ namespace VaultViewer.UI
             {
 
             }
-        }
+        }*/
 
         private void ExportData(object sender, RoutedEventArgs e)
         {
-            try
+            var visibleDataGrid = GroupOfDatagrids().Where(x => x.Visibility == Visibility.Visible).Single();
+            
+            // Make case statement with individual methods for each unique datagridName
+
+
+            switch (visibleDataGrid.Name)
             {
+                case "EmployeeData":
+                    ExportEmployee(visibleDataGrid);
+                    break;
+
+
+                case "EngineerData":
+                    
+                    break;
+
+
+                case "HRData":
+                    
+                    break;
+
+
+                case "AdminData":
+                    
+                    break;
+
 
             }
-        }*/
+        }
+
+        private void ExportEmployee(DataGrid dataGrid)
+        {
+            if (dataGrid.Items.Count == 0)
+            {
+                MessageBox.Show("Something went wrong, the data grid was not found : (");
+                return;
+            }
+
+            List<string> lines = new List<string>();
+            lines.Add(String.Join(',', dataGrid.Columns.Select(x => x.Header)));
+            lines.AddRange(dataGrid.Items.Cast<DataRowView>().Select(x => x.Row.Field<string>("Name")));
+            //var filepath = Directory.GetCurrentDirectory();
+            var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            var filename = "CustomerData.csv";
+
+            using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
+            {
+                lines.ForEach(x => writer.WriteLine(x));
+            }
+            MessageBox.Show("Data succesfully exported to .csv");
+        }
     }
 }
         
