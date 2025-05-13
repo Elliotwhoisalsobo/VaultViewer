@@ -59,6 +59,12 @@ namespace VaultViewer.UI
             EmployeeListBox.ItemsSource = items; // list of box items
         }
 
+        private void BtnLogout(object sender, RoutedEventArgs e)
+        {
+            LoginWindow lw = new LoginWindow();
+            lw.Show();
+            this.Close();
+        }
 
         private void DeleteEmployee(object sender, RoutedEventArgs e)
         {

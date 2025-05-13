@@ -26,6 +26,6 @@
 
         <Button x:Name="Btnemployeeofmonth" Content="Select employee of the month" HorizontalAlignment="Left" Margin="382,132,0,0" VerticalAlignment="Top"/>
         <!--SelectionChanged="" DisplayMemberPath="" IsSynchronizedWithCurrentItem="True"-->
-
+        <Button x:Name="Btn_Logout" Content="Logout" Click="BtnLogout" HorizontalAlignment="Right" Margin="0,35,20,0" VerticalAlignment="Top" Width="75"/>
     </Grid>
 </Window>

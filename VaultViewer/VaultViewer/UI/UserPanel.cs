@@ -235,8 +235,6 @@ namespace VaultViewer.UI
             var visibleDataGrid = GroupOfDatagrids().Where(x => x.Visibility == Visibility.Visible).Single();
             
             // Make case statement with individual methods for each unique datagridName
-
-
             switch (visibleDataGrid.Name)
             {
                 case "EmployeeData":
@@ -245,17 +243,17 @@ namespace VaultViewer.UI
 
 
                 case "EngineerData":
-                    
+                    ExportEngineer(visibleDataGrid);
                     break;
 
 
                 case "HRData":
-                    
+                    ExportHR(visibleDataGrid);
                     break;
 
 
                 case "AdminData":
-                    
+                    ExportAdmin(visibleDataGrid);
                     break;
 
 
@@ -283,6 +281,80 @@ namespace VaultViewer.UI
             }
             MessageBox.Show("Data succesfully exported to .csv");
         }
+
+        private void ExportEngineer(DataGrid dataGrid)
+        {
+            if (dataGrid.Items.Count == 0)
+            {
+                MessageBox.Show("Something went wrong, the data grid was not found : (");
+                return;
+            }
+
+            List<string> lines = new List<string>();
+            lines.Add(String.Join(',', dataGrid.Columns.Select(x => x.Header)));
+
+            lines.AddRange(
+            dataGrid.Items
+            .Cast<DataRowView>()
+            .Select(x => $"{x.Row["ProductID"]}, {x.Row["Name"]}, {x.Row["Description"]}, {x.Row["Price"]}")
+);
+
+            //var filepath = Directory.GetCurrentDirectory();
+            var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            var filename = "EngineerData.csv";
+
+            using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
+            {
+                lines.ForEach(x => writer.WriteLine(x));
+            }
+            MessageBox.Show("Data succesfully exported to .csv");
+        }
+
+        private void ExportHR(DataGrid dataGrid)
+        {
+            if (dataGrid.Items.Count == 0)
+            {
+                MessageBox.Show("Something went wrong, the data grid was not found : (");
+                return;
+            }
+
+            List<string> lines = new List<string>();
+            lines.Add(String.Join(',', dataGrid.Columns.Select(x => x.Header)));
+            lines.AddRange(dataGrid.Items.Cast<DataRowView>().Select(x => x.Row.Field<string>("Name")));
+            //var filepath = Directory.GetCurrentDirectory();
+            var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            var filename = "CustomerData.csv";
+
+            using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
+            {
+                lines.ForEach(x => writer.WriteLine(x));
+            }
+            MessageBox.Show("Data succesfully exported to .csv");
+        }
+
+        private void ExportAdmin(DataGrid dataGrid)
+        {
+            if (dataGrid.Items.Count == 0)
+            {
+                MessageBox.Show("Something went wrong, the data grid was not found : (");
+                return;
+            }
+
+            List<string> lines = new List<string>();
+            lines.Add(String.Join(',', dataGrid.Columns.Select(x => x.Header)));
+            lines.AddRange(dataGrid.Items.Cast<DataRowView>().Select(x => x.Row.Field<string>("Name")));
+            //var filepath = Directory.GetCurrentDirectory();
+            var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            var filename = "CustomerData.csv";
+
+            using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
+            {
+                lines.ForEach(x => writer.WriteLine(x));
+            }
+            MessageBox.Show("Data succesfully exported to .csv");
+        }
+
+
     }
 }
         
