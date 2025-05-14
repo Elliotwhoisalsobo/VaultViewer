@@ -8,20 +8,20 @@
         Title="UserPanel" Height="450" Width="800"
         Foreground="LimeGreen"
         Background="Black">
-    
-        <!--some cool shit : )-->
-        <Window.Triggers>
-            <EventTrigger RoutedEvent="Window.Loaded">
-                <BeginStoryboard>
-                    <Storyboard>
-                        <DoubleAnimation
+
+    <!--some cool shit : )-->
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
                         Storyboard.TargetProperty="Opacity"
                         From="0" To="1"
                         Duration="0:0:2" />
-                    </Storyboard>
-                </BeginStoryboard>
-            </EventTrigger>
-        </Window.Triggers>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
 
     <Window.Resources>
         <!-- Fallout Terminal Style for DataGrid -->
@@ -77,29 +77,12 @@
 
     <Grid>
         <!-- Logout Button -->
-        <Button x:Name="Btn_Logout" Content="Logout" Click="BtnLogout" HorizontalAlignment="Right" Margin="0,35,20,0" VerticalAlignment="Top" Width="75"/>
-
-        <!-- Role Buttons (User, HR, Engineer, Admin) -->
-        <StackPanel x:Name="DataViewingStack" Orientation="Horizontal" Margin="0">
-            <Button x:Name="BtnEmployee" Visibility="Hidden" Click="ShowEmployeeData" Content="UserData" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnHR" Visibility="Hidden" Click="ShowHRData" Content="HRData" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnEngineer" Visibility="Hidden"  Click="ShowEngineerData" Content="EngineerData" HorizontalAlignment="Left"  Margin="75,162,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="BtnAdmin" Visibility="Hidden"  Click="ShowAdminData" Content="AdminData" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
-        </StackPanel>
-
-        <!-- Data Grids with Fallout Style -->
-        <DataGrid x:Name="EmployeeData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
-        <DataGrid x:Name="HRData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
-        <DataGrid x:Name="EngineerData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
-        <DataGrid x:Name="AdminData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
-
-        <StackPanel x:Name="SortingAndFilteringStack" Orientation="Horizontal" Margin="0">
-            <Button x:Name="BtnSort" Visibility="Hidden" Content="Sort" VerticalAlignment="Bottom" Margin="15,0,0,25" Width="45" />
-            <Button x:Name="BtnFilter" Visibility="Hidden" Content="Filter" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="45" />
-            <Button x:Name="BtnExport" Visibility="Hidden" Content="Export"  Click="ExportData" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="45" />
-        </StackPanel>
-
-        
+        <!--Fallout style scanlines-->
+        <!-- Logout Button -->
+        <!--Fallout style scanlines-->
+        <!-- Logout Button -->
+        <!--Fallout style scanlines-->
+        <!-- Logout Button -->
         <!--Fallout style scanlines-->
         <Rectangle IsHitTestVisible="False" Panel.ZIndex="99" Opacity="0.2">
             <Rectangle.Fill>
@@ -124,5 +107,42 @@
                 <BlurEffect Radius="1"/>
             </Rectangle.Effect>
         </Rectangle>
+        <!-- Logout Button -->
+        <Button x:Name="Btn_Logout" Content="Logout" Click="BtnLogout" HorizontalAlignment="Right" Margin="0,35,20,0" VerticalAlignment="Top" Width="75"/>
+
+        <!-- Role Buttons (User, HR, Engineer, Admin) -->
+        <StackPanel x:Name="DataViewingStack" Orientation="Horizontal" Margin="0">
+            <Button x:Name="BtnEmployee" Visibility="Hidden" Click="ShowEmployeeData" Content="UserData" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnHR" Visibility="Hidden" Click="ShowHRData" Content="HRData" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnEngineer" Visibility="Hidden"  Click="ShowEngineerData" Content="EngineerData" HorizontalAlignment="Left"  Margin="75,162,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="BtnAdmin" Visibility="Hidden"  Click="ShowAdminData" Content="AdminData" HorizontalAlignment="Left" Margin="75,162,0,0" VerticalAlignment="Top"/>
+        </StackPanel>
+
+        <!-- Data Grids with Fallout Style -->
+        <DataGrid x:Name="EmployeeData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
+        <DataGrid x:Name="HRData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
+        <DataGrid x:Name="EngineerData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
+        <DataGrid x:Name="AdminData" Background="Black" Foreground="LimeGreen" Visibility="Hidden" IsReadOnly="True" Margin="10,200,10,60"/>
+
+        <StackPanel x:Name="SortingAndFilteringStack" Orientation="Horizontal" Margin="0">
+            <Button x:Name="BtnSort" Visibility="Hidden" Content="Sort" VerticalAlignment="Bottom" Margin="15,0,0,25" Width="45" />
+            <Button x:Name="BtnFilter" Visibility="Hidden" Content="Filter" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="45" />
+            <Button x:Name="BtnExport" Visibility="Visible" Content="Export to CSV"  Click="ExportData" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="86"/>
+            <Button x:Name="BtnExport2" Visibility="Visible" Content="Export to Excel"  Click="ExportDataExcel" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="86"/>
+        </StackPanel>
+
+        <!--Radio button for export options-->
+        <StackPanel>
+            <RadioButton Click="ExportData" GroupName="colorgrp">CSV</RadioButton>
+            <RadioButton Click="ExportDataExcel" GroupName="colorgrp">Excel</RadioButton>
+            <RadioButton GroupName="numgrp">1</RadioButton>
+            <RadioButton GroupName="numgrp">2</RadioButton>
+        </StackPanel>
+
+
+
+
+
+        <!--Fallout style scanlines-->
     </Grid>
 </Window>

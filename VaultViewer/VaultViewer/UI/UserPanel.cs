@@ -10,6 +10,8 @@ using System.Windows.Controls;
 using VaultViewer.Business;
 using System.IO;
 using System.Text;
+using ClosedXML.Excel;
+using System.Windows.Data;
 
 namespace VaultViewer.UI
 {
@@ -233,7 +235,15 @@ namespace VaultViewer.UI
         private void ExportData(object sender, RoutedEventArgs e)
         {
             var visibleDataGrid = GroupOfDatagrids().Where(x => x.Visibility == Visibility.Visible).Single();
-            
+
+
+            if (visibleDataGrid != null)
+            {
+                MessageBox.Show("No datagrid is currently visible : (");
+            }
+
+
+
             // Make case statement with individual methods for each unique datagridName
             switch (visibleDataGrid.Name)
             {
@@ -257,6 +267,36 @@ namespace VaultViewer.UI
                     break;
 
 
+            }
+        }
+        private void ExportDataExcel(object sender, RoutedEventArgs e)
+        {
+            var visibleDataGrid = GroupOfDatagrids().FirstOrDefault(x => x.Visibility == Visibility.Visible);
+
+            if (visibleDataGrid == null)
+            {
+                MessageBox.Show("No DataGrid is currently visible.");
+                return;
+            }
+
+            // Use DataGrid name to determine filename/sheetname
+            switch (visibleDataGrid.Name)
+            {
+                case "EmployeeData":
+                    ExportToExcel(visibleDataGrid, "Employees", "EmployeeData.xlsx");
+                    break;
+                case "EngineerData":
+                    ExportToExcel(visibleDataGrid, "Products", "EngineerData.xlsx");
+                    break;
+                case "HRData":
+                    ExportToExcel(visibleDataGrid, "HR", "HRData.xlsx");
+                    break;
+                case "AdminData":
+                    ExportToExcel(visibleDataGrid, "Admins", "AdminData.xlsx");
+                    break;
+                default:
+                    MessageBox.Show("Unrecognized DataGrid.");
+                    break;
             }
         }
 
@@ -352,6 +392,49 @@ namespace VaultViewer.UI
                 lines.ForEach(x => writer.WriteLine(x));
             }
             MessageBox.Show("Data succesfully exported to .csv");
+        }
+
+        private void ExportToExcel(DataGrid dataGrid, string sheetName, string filename)
+        {
+            if (dataGrid.Items.Count == 0)
+            {
+                MessageBox.Show("No data found to export.");
+                return;
+            }
+
+            var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add(sheetName);
+
+            // Write headers <-- first row
+            for (int i = 0; i < dataGrid.Columns.Count; i++)
+            {
+                worksheet.Cell(1, i + 1).Value = dataGrid.Columns[i].Header?.ToString() ?? $"Column{i + 1}";
+            }
+
+            // Write data <-- second row and beyond
+            int row = 2;
+            foreach (DataRowView drv in dataGrid.Items)
+            {
+                for (int col = 0; col < dataGrid.Columns.Count; col++)
+                {
+                    var boundColumn = dataGrid.Columns[col] as DataGridBoundColumn;
+                    var binding = boundColumn?.Binding as Binding;
+                    var columnName = binding?.Path?.Path;
+
+                    if (!string.IsNullOrEmpty(columnName))
+                    {
+                        worksheet.Cell(row, col + 1).Value = drv.Row[columnName]?.ToString();
+                    }
+                }
+                row++;
+            }
+
+            // Save file
+            string exportPath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            string fullPath = Path.Combine(exportPath, filename);
+
+            workbook.SaveAs(fullPath);
+            MessageBox.Show($"Data successfully exported to Excel:\n{fullPath}");
         }
 
 
