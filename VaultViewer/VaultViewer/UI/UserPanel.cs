@@ -430,6 +430,8 @@ namespace VaultViewer.UI
             }
 
             // Save file
+
+            // change later (to work for everyone not just me : )
             string exportPath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
             string fullPath = Path.Combine(exportPath, filename);
 

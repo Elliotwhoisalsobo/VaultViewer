@@ -127,16 +127,23 @@
         <StackPanel x:Name="SortingAndFilteringStack" Orientation="Horizontal" Margin="0">
             <Button x:Name="BtnSort" Visibility="Hidden" Content="Sort" VerticalAlignment="Bottom" Margin="15,0,0,25" Width="45" />
             <Button x:Name="BtnFilter" Visibility="Hidden" Content="Filter" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="45" />
-            <Button x:Name="BtnExport" Visibility="Visible" Content="Export to CSV"  Click="ExportData" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="86"/>
-            <Button x:Name="BtnExport2" Visibility="Visible" Content="Export to Excel"  Click="ExportDataExcel" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="86"/>
+            <Button x:Name="BtnExport" Visibility="Visible" Content="Export"  Click="ExportData" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="86"/>
+            <!--<Button x:Name="BtnExport2" Visibility="Hidden" Content="Export to Excel"  Click="ExportDataExcel" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="86"/> -->
         </StackPanel>
 
         <!--Radio button for export options-->
-        <StackPanel>
-            <RadioButton Click="ExportData" GroupName="colorgrp">CSV</RadioButton>
-            <RadioButton Click="ExportDataExcel" GroupName="colorgrp">Excel</RadioButton>
-            <RadioButton GroupName="numgrp">1</RadioButton>
-            <RadioButton GroupName="numgrp">2</RadioButton>
+        <StackPanel Margin="257,0,0,0" VerticalAlignment="Bottom" Height="46">
+            <!-- First radio button with text -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <RadioButton Content="Export to CSV" Visibility="Visible" VerticalAlignment="Center"/>
+                <TextBlock Text="Export to CSV" VerticalAlignment="Center" Margin="-70,0"/>
+            </StackPanel>
+
+            <!-- Second radio button with text -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <RadioButton Content="Export to Excel" Visibility="Visible" VerticalAlignment="Center"/>
+                <TextBlock Text="Export to Excel" VerticalAlignment="Center" Margin="-75,0"/>
+            </StackPanel>
         </StackPanel>
 
 
