@@ -30,8 +30,9 @@ namespace VaultViewer.UI
         }
 
 
+        // HELPER FUNCTIONS
 
-        // Group buttons together 
+        // Group Employeebuttons together 
         private List<Button> GroupOfButtons()
         {
             List<Button> groupOfButtons = new List<Button>
@@ -43,7 +44,7 @@ namespace VaultViewer.UI
             };
             return groupOfButtons;
         }
-
+        // Group datagrids together
         private List<DataGrid> GroupOfDatagrids()
         {
             List<DataGrid> groupOfDatagrids = new List<DataGrid>
@@ -54,6 +55,18 @@ namespace VaultViewer.UI
             AdminData
             };
             return groupOfDatagrids;
+        }
+
+        // Group databuttons together
+         private List<Button> GroupOfDataButtons()
+        {
+            List<Button> groupOfDataButtons = new List<Button>
+            {
+            BtnSort,
+            BtnFilter,
+            BtnExport,
+            };
+            return groupOfDataButtons;
         }
 
         // This method can be used to modify the UI based on roles
@@ -99,11 +112,13 @@ namespace VaultViewer.UI
                 datagrid.Visibility = Visibility.Hidden;
             }
 
-
-            // Put this into a list later
-            BtnFilter.Visibility = Visibility.Visible;
-            BtnSort.Visibility = Visibility.Visible;
-            BtnExport.Visibility = Visibility.Visible; 
+            foreach (var btn in GroupOfDataButtons())
+            {
+                btn.Visibility = Visibility.Visible;
+            }
+            //BtnFilter.Visibility = Visibility.Visible;
+            //BtnSort.Visibility = Visibility.Visible;
+            //BtnExport.Visibility = Visibility.Visible; 
 
 
             EmployeeData.Visibility = Visibility.Visible; // dataGrid
@@ -113,7 +128,7 @@ namespace VaultViewer.UI
                 {
                     conn.Open();
                     // establishing connection to DB
-                    MessageBox.Show("Connected to db!"); // Working : DDDD
+                    //MessageBox.Show("Connected to db!"); // debug
                     MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn);
                     // Filling up dataset with data from DB
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
@@ -138,6 +153,11 @@ namespace VaultViewer.UI
                 datagrid.Visibility = Visibility.Hidden;
             }
 
+            foreach (var btn in GroupOfDataButtons())
+            {
+                btn.Visibility = Visibility.Visible;
+            }
+
             HRData.Visibility = Visibility.Visible; // DataGrid
             try
             {
@@ -145,7 +165,7 @@ namespace VaultViewer.UI
                 {
                     conn.Open();
                     // do stuff w connection
-                    MessageBox.Show("Connected to db!"); // Working : DDDD
+                    //MessageBox.Show("Connected to db!"); // debug
                     MySqlCommand cmd = new MySqlCommand("Select * from employee", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_employee = new DataSet();
@@ -166,6 +186,11 @@ namespace VaultViewer.UI
                 datagrid.Visibility = Visibility.Hidden;
             }
 
+            foreach (var btn in GroupOfDataButtons())
+            {
+                btn.Visibility = Visibility.Visible;
+            }
+
             EngineerData.Visibility = Visibility.Visible; // DataGrid
             try
             {
@@ -173,7 +198,7 @@ namespace VaultViewer.UI
                 {
                     conn.Open();
                     // do stuff w connection
-                    MessageBox.Show("Connected to db!"); // Working : DDDD
+                    //MessageBox.Show("Connected to db!"); // debug
                     MySqlCommand cmd = new MySqlCommand("Select * from product", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_engineer = new DataSet();
@@ -194,6 +219,11 @@ namespace VaultViewer.UI
                 datagrid.Visibility = Visibility.Hidden;
             }
 
+            foreach (var btn in GroupOfDataButtons())
+            {
+                btn.Visibility = Visibility.Visible;
+            }
+
             AdminData.Visibility = Visibility.Visible; // DataGrid
             try
             { 
@@ -201,7 +231,7 @@ namespace VaultViewer.UI
                 {
                     conn.Open();
                     // do stuff w connection
-                    MessageBox.Show("Connected to db!"); 
+                    //MessageBox.Show("Connected to db!"); // debug
                     MySqlCommand cmd = new MySqlCommand("Select * from employeelogin", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_admin = new DataSet();
@@ -231,6 +261,14 @@ namespace VaultViewer.UI
 
             }
         }*/
+        // Reveal radio buttons & text when "Export" btn is pressed
+        private void ExportDataOptions(object sender, RoutedEventArgs e)
+        {
+            radiobtn1.Visibility = Visibility.Visible;
+            radiobtntext1.Visibility = Visibility.Visible;
+            radiobtn2.Visibility = Visibility.Visible;
+            radiobtntext2.Visibility = Visibility.Visible;
+        }
 
         private void ExportData(object sender, RoutedEventArgs e)
         {
