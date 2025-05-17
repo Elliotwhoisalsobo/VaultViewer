@@ -115,5 +115,64 @@ namespace VaultViewer.UI
             //EmployeeListBox.SelectedItem = 
             var a = 1;
         }
+
+
+        private void addEmployeePopup(object sender, RoutedEventArgs e)
+        {
+            AddEmployeePopup.IsOpen = !AddEmployeePopup.IsOpen;
+        }
+
+        private void SaveEmployee(object sender, RoutedEventArgs e) // Save as employee data lter from routed eventargs
+        {
+            string FirstName = FirstNameBox.Text;
+            string LastName = LastNameBox.Text;
+            string AddressLine = AddressLineBox.Text;
+            DateTime? DateOfBirth = DateOfBirthBox.SelectedDate;
+            string PostalCode = PostalCodeBox.Text;
+            string PostalCity = PostalCityBox.Text;
+            string Country = CountryBox.Text;
+            DateTime? EmploymentDate = EmploymentDateBox.SelectedDate;
+
+
+            int isdeleted = 0; // make this functional later
+            // string department = (DepartmentBox.SelectedItem as ComboBoxItem)?.Content.ToString(); // Make this add a record to the employeerole table later
+
+            
+
+            AddEmployeePopup.IsOpen = false;
+        }
+
+        private void CancelPopup(object sender, RoutedEventArgs e)
+        {
+            AddEmployeePopup.IsOpen = false;
+        }
+
+        //   private void addEmployee(int EmployeeID)
+        //    {
+        //        EmployeeListBox.Items.Add(EmployeeID);
+        //        throw new NotImplementedException();
+        //    }
+
+        //    private void addEmployeeToDB(int EmployeeID)
+        //    {
+
+        //    try
+        //    {
+        //        using (var conn = DatabaseConfig.GetConnection())
+        //        {
+        //            conn.Open();
+        //            string query = "UPDATE employee SET IsDeleted = 1 WHERE EmployeeID = @EmployeeID";
+        //            MySqlCommand cmd = new MySqlCommand(query, conn);
+        //            cmd.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
+
+
     }
 }
