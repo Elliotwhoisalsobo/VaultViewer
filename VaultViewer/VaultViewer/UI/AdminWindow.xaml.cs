@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VaultViewer.Business;
 using VaultViewer.DataAccessLayer;
+using static VaultViewer.DataAccessLayer.EmployeeRepository;
 
 namespace VaultViewer.UI
 {
@@ -122,23 +123,66 @@ namespace VaultViewer.UI
             AddEmployeePopup.IsOpen = !AddEmployeePopup.IsOpen;
         }
 
-        private void SaveEmployee(object sender, RoutedEventArgs e) // Save as employee data lter from routed eventargs
+        private void SaveEmployee(object sender, RoutedEventArgs e) // Save as employee data
         {
+            // Collecting the data
+            string EmployeeID = ""; // get highest employeeid +1 (no autoincrement)
             string FirstName = FirstNameBox.Text;
             string LastName = LastNameBox.Text;
             string AddressLine = AddressLineBox.Text;
             DateTime? DateOfBirth = DateOfBirthBox.SelectedDate;
+            DateTime? EmploymentDate = DateTime.Today;
             string PostalCode = PostalCodeBox.Text;
             string PostalCity = PostalCityBox.Text;
             string Country = CountryBox.Text;
-            DateTime? EmploymentDate = EmploymentDateBox.SelectedDate;
-
+            //DateTime? EmploymentDate = EmploymentDateBox.SelectedDate;
 
             int isdeleted = 0; // make this functional later
-            // string department = (DepartmentBox.SelectedItem as ComboBoxItem)?.Content.ToString(); // Make this add a record to the employeerole table later
+                               // string department = (DepartmentBox.SelectedItem as ComboBoxItem)?.Content.ToString(); // Make this add a record to the employeerole table later
 
-            
+            // Putting the data into the MYSQLDB:
 
+            try
+            {
+                using (var conn = DatabaseConfig.GetConnection())
+                {
+                    conn.Open();
+
+                    // 1. Get highest EmployeeID
+                    string getMaxIdQuery = "SELECT MAX(EmployeeID) FROM employee";
+                    using (MySqlCommand getMaxCmd = new MySqlCommand(getMaxIdQuery, conn))
+                    {
+                        object result = getMaxCmd.ExecuteScalar();
+                        int maxId = result != DBNull.Value ? Convert.ToInt32(result) : 0;
+                        // The employeeID we will insert will be the current highest + 1 (we cannot autoincrement because of foreign key restraints
+                        EmployeeID = (maxId + 1).ToString();
+                    }
+
+                    // 2. Insert the new employee
+
+                    string insertQuery = @"INSERT INTO employee (EmployeeID, FirstName, LastName, AddressLine1, EmploymentDate, DateOfBirth, PostalCode, PostalCity, Country, IsDeleted)
+                                   VALUES (@EmployeeID, @FirstName, @LastName, @AddressLine1, @DateOfBirth, @EmploymentDate ,@PostalCode, @PostalCity, @Country, @IsDeleted)";
+                    using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+                        insertCmd.Parameters.AddWithValue("@FirstName", FirstName);
+                        insertCmd.Parameters.AddWithValue("@LastName", LastName);
+                        insertCmd.Parameters.AddWithValue("@AddressLine1", AddressLine);
+                        insertCmd.Parameters.AddWithValue("@DateOfBirth", (object)DateOfBirth ?? DBNull.Value);
+                        insertCmd.Parameters.AddWithValue("@EmploymentDate", EmploymentDate); // fix le bug latur
+                        insertCmd.Parameters.AddWithValue("@PostalCode", PostalCode);
+                        insertCmd.Parameters.AddWithValue("@PostalCity", PostalCity);
+                        insertCmd.Parameters.AddWithValue("@Country", Country);
+                        insertCmd.Parameters.AddWithValue("@IsDeleted", isdeleted);
+                        insertCmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saving employee: " + ex.Message);
+            }
+            MessageBox.Show("EmployeeRecord added succesfully!");
             AddEmployeePopup.IsOpen = false;
         }
 

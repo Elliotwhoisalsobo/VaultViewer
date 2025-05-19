@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="AdminWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="CreateEmployeeBtn" Content="Add employee" HorizontalAlignment="Left" Click="addEmployeePopup" Margin="423,217,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="CreateEmployeeBtn" Content="Add employee" HorizontalAlignment="Left" Click="addEmployeePopup" Margin="423,175,0,0" VerticalAlignment="Top"/>
         <Popup x:Name="AddEmployeePopup"
            Placement="Center" StaysOpen="False">
             <Border Background="White" BorderBrush="Gray" BorderThickness="1" Padding="10">
@@ -19,13 +19,14 @@
                     <TextBox x:Name="PostalCodeBox" Text="PostalCode"/>
                     <TextBox x:Name="PostalCityBox" Text="City"/>
                     <TextBox x:Name="CountryBox" Text="Country"/>
-                    <DatePicker x:Name="DateOfBirthBox" Text="Date of birth" /> <!--text not displaying?-->
-                    <DatePicker x:Name="EmploymentDateBox" Text="Date of employment"/>
-                    <ComboBox x:Name="DepartmentBox">
+                    <DatePicker x:Name="DateOfBirthBox" Text="Date of birth" />
+                    <!--text not displaying?-->
+                    <!--<DatePicker x:Name="EmploymentDateBox" Text="Date of employment"/> -->
+                    <!-- <ComboBox x:Name="DepartmentBox">
                         <ComboBoxItem>Other</ComboBoxItem>
                         <ComboBoxItem>Engineer</ComboBoxItem>
                         <ComboBoxItem>Sales</ComboBoxItem>
-                    </ComboBox>
+                    </ComboBox> -->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                         <Button Content="Save" Click="SaveEmployee"/>
                         <Button Content="Cancel" Click="CancelPopup" Margin="5,0,0,0"/>
@@ -33,7 +34,7 @@
                 </StackPanel>
             </Border>
         </Popup>
-        
+
         <Button x:Name="ViewEmployeesBtn" Content="View employees" HorizontalAlignment="Left" Click="ShowEmployees" Margin="423,264,0,0" VerticalAlignment="Top"/>
         <Button x:Name="DeleteEmployeeBtn" Content="Delete employee" HorizontalAlignment="Left" Visibility="Hidden" Click="DeleteEmployee" Margin="240,361,0,0" VerticalAlignment="Top"/>
         <ListBox x:Name="EmployeeListBox" Visibility="Hidden" Margin="198,175,410,89" SelectionChanged="EmployeeListBox_SelectionChanged">
@@ -53,5 +54,6 @@
         <Button x:Name="Btnemployeeofmonth" Content="Select employee of the month" HorizontalAlignment="Left" Margin="382,132,0,0" VerticalAlignment="Top"/>
         <!--SelectionChanged="" DisplayMemberPath="" IsSynchronizedWithCurrentItem="True"-->
         <Button x:Name="Btn_Logout" Content="Logout" Click="BtnLogout" HorizontalAlignment="Right" Margin="0,35,20,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="Btn_assignEmployeeRole" Content="Assign employee role" HorizontalAlignment="Left" Margin="400,217,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
