@@ -18,7 +18,7 @@
                     <TextBox x:Name="AddressLineBox" Text="Address"/>
                     <TextBox x:Name="PostalCodeBox" Text="PostalCode"/>
                     <TextBox x:Name="PostalCityBox" Text="City"/>
-                    <TextBox x:Name="CountryBox" Text="Country"/>
+                    <TextBox x:Name="CountryBox" Text="CountryCode (XX)"/>
                     <DatePicker x:Name="DateOfBirthBox" Text="Date of birth" />
                     <!--text not displaying?-->
                     <!--<DatePicker x:Name="EmploymentDateBox" Text="Date of employment"/> -->

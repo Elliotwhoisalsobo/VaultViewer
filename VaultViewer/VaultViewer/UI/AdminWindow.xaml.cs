@@ -33,12 +33,20 @@ namespace VaultViewer.UI
             public string Name { get; set; }
         }
 
+        private int selectedEmployeeId = -1; // Global variable to get the employeeID from the ListBox (for popup)
+
         public AdminWindow()
         {
             InitializeComponent();
         }
 
         // helper functions:
+        private void BtnLogout(object sender, RoutedEventArgs e)
+        {
+            LoginWindow lw = new LoginWindow();
+            lw.Show();
+            this.Close();
+        }
         private void GetEmployeesDataTable()
         {
 
@@ -77,73 +85,107 @@ namespace VaultViewer.UI
             Btn_AddEmployeeRole.Visibility = Visibility.Visible;
             DeleteEmployeeBtn.Visibility = Visibility.Hidden;
         }
-
         private void BtnAddEmployeeRole(object sender, RoutedEventArgs e)
         {
-            var employee = EmployeeListBox.SelectedItem as EmployeeViewData; //Get the employeeID from the currently selected employee (selected within the ListBox)
+            var employee = EmployeeListBox.SelectedItem as EmployeeViewData; // Initiatiate the currently selected employee record from the ListBox
             if (employee == null)
             {
                 MessageBox.Show("Please select an employee first");
                 return;
             }
-            AddEmployeeRole(employee.Id); // W I P !!!
-            GetEmployeesDataTable();
+            else
+
+            
+            //GetEmployeesDataTable(); // Loads employees as a list from the SQL DB and sets the itemsource of employeelistbox to this list
+            //AddEmployeeRole(employee.Id); // old way/method
+            AddEmployeeRole(selectedEmployeeId); // W I P !!!
         }
 
         private void AddEmployeeRole(int EmployeeID)
         {
 
-            AssignRolePopup.Visibility = Visibility.Visible;
+            AssignRolePopup.IsOpen = true;
 
-            //    switch (role) // RoleID
-            //    {
-            //        case x:
-            //    try
-            //    {
-            //        using (var conn = DatabaseConfig.GetConnection())
-            //        {
-            //            conn.Open();
-            //            //string query = "DELETE FROM employee WHERE EmployeeID = @EmployeeID";
-            //            string query = "UPDATE employee SET IsDeleted = 1 WHERE EmployeeID = @EmployeeID";
-            //            MySqlCommand cmd = new MySqlCommand(query, conn);
-            //            cmd.Parameters.AddWithValue("@EmployeeID", EmployeeID);
-            //            cmd.ExecuteNonQuery();
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show(ex.Message);
-            //    }
-            //}
-    }
+        }
+        private void AssignRoleToEmployee(int employeeId, string roleName)
+        {
+            try
+            {
+                using (var conn = DatabaseConfig.GetConnection())
+                {
+                    conn.Open();
+
+                    // Step 1: Get RoleID from Role table based on role name
+                    string getRoleIdQuery = "SELECT RoleID FROM Role WHERE Name = @Name LIMIT 1";
+                    int roleId;
+
+                    using (var cmd = new MySqlCommand(getRoleIdQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", roleName);
+                        object result = cmd.ExecuteScalar();
+
+                        if (result == null)
+                        {
+                            MessageBox.Show($"Role '{roleName}' not found in the Role table.");
+                            return;
+                        }
+
+                        roleId = Convert.ToInt32(result);
+                    }
+
+                    // Step 2: Insert into Employeerole table
+                    string insertQuery = "INSERT INTO Employeerole (EmployeeID, RoleID) VALUES (@EmployeeID, @RoleID)";
+                    using (var cmd = new MySqlCommand(insertQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
+                        cmd.Parameters.AddWithValue("@RoleID", roleId);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    MessageBox.Show($"Role '{roleName}' assigned to employee ID {employeeId} successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error assigning role: " + ex.Message);
+            }
+        }
+
+
         private void AssignRole_Default(object sender, RoutedEventArgs e)
             {
-            throw new NotImplementedException();
-            }
+            var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
+            AssignRoleToEmployee(selectedEmployeeId, "Default");
+            AssignRolePopup.IsOpen = false;
+        }
         private void AssignRole_HR(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            AssignRoleToEmployee(selectedEmployeeId, "HR");
+            AssignRolePopup.IsOpen = false;
         }
         private void AssignRole_Engineer(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
+            if (employee == null)
+            {
+                MessageBox.Show("Please select an employee.");
+                return;
+            }
+            AssignRoleToEmployee(employee.Id, "Engineering");
+            AssignRolePopup.IsOpen = false;
         }
         private void AssignRole_Admin(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            AssignRoleToEmployee(selectedEmployeeId, "Admin");
+            AssignRolePopup.IsOpen = false;
         }
         private void CancelAssignRole(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            AssignRolePopup.IsOpen = false;
         }
 
 
-        private void BtnLogout(object sender, RoutedEventArgs e)
-    {
-        LoginWindow lw = new LoginWindow();
-        lw.Show();
-        this.Close();
-    }
+
     private void BtnDeleteEmployee(object sender, RoutedEventArgs e)
     {
         //var emplyee1 = (EmployeeViewData)EmployeeListBox.SelectedItem;
@@ -259,7 +301,9 @@ namespace VaultViewer.UI
             catch (Exception ex)
             {
                 MessageBox.Show("Error saving employee: " + ex.Message);
+                return;
             }
+
             MessageBox.Show("EmployeeRecord added succesfully!");
             AddEmployeePopup.IsOpen = false;
         }
@@ -272,7 +316,8 @@ namespace VaultViewer.UI
         //   private void addEmployee(int EmployeeID)
         //    {
         //        EmployeeListBox.Items.Add(EmployeeID);
-        //        throw new NotImplementedException();
+        ////                    AssignRoleToEmployee(selectedEmployeeId, "Default");
+        //    AssignRolePopup.IsOpen = false;
         //    }
 
         //    private void addEmployeeToDB(int EmployeeID)
