@@ -1,8 +1,11 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DocumentFormat.OpenXml.Bibliography;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -44,10 +47,17 @@ namespace VaultViewer.UI
             {
                 using (var conn = DatabaseConfig.GetConnection())
                 {
+                    // We do not want to display default users (user, HR, Engineer, Admin, etc)
+                    int skip = 4;  // Number of rows to skip
+                    int take = 10000;  // Number of rows to fetch after skipping (Mandatory not optional)
                     conn.Open();
-                    MySqlCommand cmd = new MySqlCommand("SELECT EmployeeID, FirstName, LastName FROM employee WHERE IsDeleted = 0", conn);
+                    MySqlCommand cmd = new MySqlCommand("SELECT EmployeeID, FirstName, LastName FROM employee WHERE IsDeleted = 0 " + "LIMIT @Take OFFSET @Skip", conn); // IT WORKSSSSSSS!!! : DDD (default employees are no longer visible !!!
+                    cmd.Parameters.AddWithValue("@Skip", skip);
+                    cmd.Parameters.AddWithValue("@Take", take);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     adp.Fill(dataTable);
+
+
                 }
             }
             catch (Exception ex)
@@ -60,16 +70,82 @@ namespace VaultViewer.UI
             EmployeeListBox.ItemsSource = items; // list of box items
         }
 
-        private void BtnLogout(object sender, RoutedEventArgs e)
+        private void BtnEmployeeRole(object sender, RoutedEventArgs e)
         {
-            LoginWindow lw = new LoginWindow();
-            lw.Show();
-            this.Close();
+            GetEmployeesDataTable();
+            EmployeeListBox.Visibility = Visibility.Visible;
+            Btn_AddEmployeeRole.Visibility = Visibility.Visible;
+            DeleteEmployeeBtn.Visibility = Visibility.Hidden;
         }
 
-        private void DeleteEmployee(object sender, RoutedEventArgs e)
+        private void BtnAddEmployeeRole(object sender, RoutedEventArgs e)
         {
-            //var emplyee1 = (EmployeeViewData)EmployeeListBox.SelectedItem;
+            var employee = EmployeeListBox.SelectedItem as EmployeeViewData; //Get the employeeID from the currently selected employee (selected within the ListBox)
+            if (employee != null)
+            {
+                MessageBox.Show("Please select an employee first");
+                return;
+            }
+            AddEmployeeRole(employee.Id); // W I P !!!
+            GetEmployeesDataTable();
+        }
+
+        private void AddEmployeeRole(int EmployeeID)
+        {
+            AssignRolePopup.Visibility = Visibility.Visible;
+
+            //    switch (role) // RoleID
+            //    {
+            //        case x:
+            //    try
+            //    {
+            //        using (var conn = DatabaseConfig.GetConnection())
+            //        {
+            //            conn.Open();
+            //            //string query = "DELETE FROM employee WHERE EmployeeID = @EmployeeID";
+            //            string query = "UPDATE employee SET IsDeleted = 1 WHERE EmployeeID = @EmployeeID";
+            //            MySqlCommand cmd = new MySqlCommand(query, conn);
+            //            cmd.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+            //            cmd.ExecuteNonQuery();
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show(ex.Message);
+            //    }
+            //}
+    }
+        private void AssignRole_Default(object sender, RoutedEventArgs e)
+            {
+            throw new NotImplementedException();
+            }
+        private void AssignRole_HR(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void AssignRole_Engineer(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void AssignRole_Admin(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        private void CancelAssignRole(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void BtnLogout(object sender, RoutedEventArgs e)
+    {
+        LoginWindow lw = new LoginWindow();
+        lw.Show();
+        this.Close();
+    }
+    private void BtnDeleteEmployee(object sender, RoutedEventArgs e)
+    {
+        //var emplyee1 = (EmployeeViewData)EmployeeListBox.SelectedItem;
             var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
             if (employee == null)
             {
@@ -106,6 +182,7 @@ namespace VaultViewer.UI
         {
             EmployeeListBox.Visibility = Visibility.Visible;
             DeleteEmployeeBtn.Visibility = Visibility.Visible;
+            Btn_AddEmployeeRole.Visibility = Visibility.Hidden;
             GetEmployeesDataTable();
             //EmployeeListBox.ItemsSource = GetEmployeesDataTable().DefaultView; // Results in an ERROR "id not found"
         }
@@ -169,7 +246,7 @@ namespace VaultViewer.UI
                         insertCmd.Parameters.AddWithValue("@LastName", LastName);
                         insertCmd.Parameters.AddWithValue("@AddressLine1", AddressLine);
                         insertCmd.Parameters.AddWithValue("@DateOfBirth", (object)DateOfBirth ?? DBNull.Value);
-                        insertCmd.Parameters.AddWithValue("@EmploymentDate", EmploymentDate); // fix le bug latur
+                        insertCmd.Parameters.AddWithValue("@EmploymentDate", EmploymentDate); // fix le bug latur (this is dateofbirth for some reason lol)
                         insertCmd.Parameters.AddWithValue("@PostalCode", PostalCode);
                         insertCmd.Parameters.AddWithValue("@PostalCity", PostalCity);
                         insertCmd.Parameters.AddWithValue("@Country", Country);
