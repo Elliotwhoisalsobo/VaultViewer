@@ -81,7 +81,7 @@ namespace VaultViewer.UI
         private void BtnAddEmployeeRole(object sender, RoutedEventArgs e)
         {
             var employee = EmployeeListBox.SelectedItem as EmployeeViewData; //Get the employeeID from the currently selected employee (selected within the ListBox)
-            if (employee != null)
+            if (employee == null)
             {
                 MessageBox.Show("Please select an employee first");
                 return;
@@ -92,6 +92,7 @@ namespace VaultViewer.UI
 
         private void AddEmployeeRole(int EmployeeID)
         {
+
             AssignRolePopup.Visibility = Visibility.Visible;
 
             //    switch (role) // RoleID
