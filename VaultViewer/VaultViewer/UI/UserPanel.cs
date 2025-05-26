@@ -477,6 +477,57 @@ namespace VaultViewer.UI
             MessageBox.Show($"Data successfully exported to Excel:\n{fullPath}");
         }
 
+        // Filter (LIMIT)
+        private void FilterData(object sender, RoutedEventArgs e)
+        {
+
+            LimitInput.Visibility = Visibility.Visible;
+            var visibleDataGrid = GroupOfDatagrids().FirstOrDefault(x => x.Visibility == Visibility.Visible);
+            if (visibleDataGrid == null)
+            {
+                MessageBox.Show("No DataGrid is currently visible.");
+                return;
+            }
+
+            if (!int.TryParse(LimitInput.Text, out int limit) || limit <= 0)
+            {
+                MessageBox.Show("Please enter a valid positive number for limit.");
+                return;
+            }
+
+            string query = visibleDataGrid.Name switch
+            {   // I absolutely fucking love the fat squid (=>) lambda function : DDD
+                "EmployeeData" => $"SELECT Name FROM customer LIMIT {limit}",
+                "EngineerData" => $"SELECT * FROM product LIMIT {limit}",
+                "HRData" => $"SELECT * FROM employee LIMIT {limit}",
+                "AdminData" => $"SELECT * FROM employeelogin LIMIT {limit}",
+                _ => null
+            };
+
+            if (query == null)
+            {
+                MessageBox.Show("Unrecognized DataGrid.");
+                return;
+            }
+
+            try
+            {
+                using (var conn = DatabaseConfig.GetConnection())
+                {
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
+                    DataSet dataset = new DataSet();
+                    adp.Fill(dataset, "FilteredData");
+                    visibleDataGrid.ItemsSource = dataset.Tables["FilteredData"]?.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
 
     }
 }

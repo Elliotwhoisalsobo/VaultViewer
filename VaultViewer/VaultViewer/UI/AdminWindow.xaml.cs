@@ -96,9 +96,8 @@ namespace VaultViewer.UI
             else
 
             
-            //GetEmployeesDataTable(); // Loads employees as a list from the SQL DB and sets the itemsource of employeelistbox to this list
-            //AddEmployeeRole(employee.Id); // old way/method
-            AddEmployeeRole(selectedEmployeeId); // W I P !!!
+            //GetEmployeesDataTable(); // THIS BITCH RELOADED MY SHIT CAUSING EMPLOYEE ID TO BE -1 
+            AddEmployeeRole(selectedEmployeeId); // WORKS !!!
         }
 
         private void AddEmployeeRole(int EmployeeID)
