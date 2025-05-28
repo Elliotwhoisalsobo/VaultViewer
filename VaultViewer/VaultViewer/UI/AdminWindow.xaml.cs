@@ -191,7 +191,7 @@ namespace VaultViewer.UI
             var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
             if (employee == null)
             {
-                MessageBox.Show("Is null");
+                MessageBox.Show("Please select an Employee first.");
                 return;
             }
             DeleteUser(employee.Id);

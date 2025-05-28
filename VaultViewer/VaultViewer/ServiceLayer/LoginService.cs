@@ -230,7 +230,7 @@ namespace VaultViewer.ServiceLayer
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@passwordhash", hashedPassword);
                     cmd.Parameters.AddWithValue("@employeeid", employeeId);
-
+                    //MySql.Data.MySqlClient.MySqlException: 'Duplicate entry 'admin' for key 'employeelogin.PRIMARY''
                     int rowsAffected = cmd.ExecuteNonQuery();
                     return rowsAffected > 0;
                 }
