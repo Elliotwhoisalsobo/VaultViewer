@@ -62,7 +62,7 @@ namespace VaultViewer.UI
         {
             List<Button> groupOfDataButtons = new List<Button>
             {
-            BtnSort,
+            //BtnSort,
             BtnFilter,
             BtnExport,
             };

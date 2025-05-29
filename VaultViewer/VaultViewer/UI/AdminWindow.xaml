@@ -24,7 +24,7 @@
     </Window.Triggers>
 
     <Window.Resources>
-        <Style TargetType="Button">
+        <Style x:Name="Btn_Fallout"  TargetType="Button">
             <Setter Property="Background" Value="Black"/>
             <Setter Property="Foreground" Value="LimeGreen"/>
             <Setter Property="FontFamily" Value="Consolas"/>
