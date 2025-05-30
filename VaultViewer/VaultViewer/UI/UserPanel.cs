@@ -361,7 +361,7 @@ namespace VaultViewer.UI
             {
                 lines.ForEach(x => writer.WriteLine(x));
             }
-            MessageBox.Show("Data succesfully exported to .csv");
+            MessageBox.Show($"Data successfully exported to Csv:\n{filepath}");
         }
 
         private void ExportEngineer(DataGrid dataGrid)
@@ -391,7 +391,7 @@ namespace VaultViewer.UI
             {
                 lines.ForEach(x => writer.WriteLine(x));
             }
-            MessageBox.Show("Data succesfully exported to .csv");
+            MessageBox.Show($"Data successfully exported to Csv:\n{filepath}");
         }
 
         private void ExportHR(DataGrid dataGrid)
@@ -407,7 +407,7 @@ namespace VaultViewer.UI
             lines.AddRange(
             dataGrid.Items
             .Cast<DataRowView>()
-            .Select(x => $"{x.Row["EmployeeID"]}, {x.Row["FirstName"]}, {x.Row["LastName"]}, {x.Row["DateOfBirth"]} {x.Row["AddressLine1"]}, {x.Row["PostalCode"]}, {x.Row["PostalCity"]}, {x.Row["Country"]}, {x.Row["EmploymentDate"]}, {x.Row["CurrentMonthlySalary"]}")
+            .Select(x => $"{x.Row["EmployeeID"]}, {x.Row["FirstName"]}, {x.Row["LastName"]}, {x.Row["DateOfBirth"]} {x.Row["AddressLine1"]}, {x.Row["PostalCode"]}, {x.Row["PostalCity"]}, {x.Row["Country"]}, {x.Row["EmploymentDate"]}")
 );
             //var filepath = Directory.GetCurrentDirectory();
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -419,7 +419,7 @@ namespace VaultViewer.UI
             {
                 lines.ForEach(x => writer.WriteLine(x));
             }
-            MessageBox.Show("Data succesfully exported to .csv");
+            MessageBox.Show($"Data successfully exported to Csv:\n{filepath}");
         }
 
         private void ExportAdmin(DataGrid dataGrid)
@@ -446,7 +446,7 @@ namespace VaultViewer.UI
             {
                 lines.ForEach(x => writer.WriteLine(x));
             }
-            MessageBox.Show("Data succesfully exported to .csv");
+            MessageBox.Show($"Data successfully exported to Csv:\n{filepath}");
         }
 
         private void ExportToExcel(DataGrid dataGrid, string sheetName, string filename)

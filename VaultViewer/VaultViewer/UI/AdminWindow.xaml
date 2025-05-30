@@ -100,7 +100,7 @@
         <!-- Buttons -->
         <Button x:Name="CreateEmployeeBtn" Content="Add employee" Click="addEmployeePopup" Margin="423,175,0,0" />
         <Button x:Name="ViewEmployeesBtn" Content="View employees" Click="ShowEmployees" Margin="423,264,0,0" />
-        <Button x:Name="DeleteEmployeeBtn" Content="Delete employee" Visibility="Hidden" Click="BtnDeleteEmployee" Margin="240,361,0,0" />
+        <Button x:Name="DeleteEmployeeBtn" Content="Delete employee" Visibility="Hidden" Click="BtnDeleteEmployee" Margin="220,330,0,0" />
         <Button x:Name="Btnemployeeofmonth" Content="Select employee of the month" Margin="382,132,0,0" />
         <Button x:Name="Btn_Logout" Content="Logout" Click="BtnLogout" HorizontalAlignment="Right" Margin="0,35,20,0" Width="75" VerticalAlignment="Top"/>
         <Button x:Name="Btn_assignEmployeeRole" Content="Assign employee role" Click="BtnEmployeeRole" Margin="400,217,0,0" />
