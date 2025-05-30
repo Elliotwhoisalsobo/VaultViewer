@@ -279,7 +279,7 @@ namespace VaultViewer.UI
 
                     // 2. Insert the new employee
 
-                    string insertQuery = @"INSERT INTO employee (EmployeeID, FirstName, LastName, AddressLine1, EmploymentDate, DateOfBirth, PostalCode, PostalCity, Country, IsDeleted)
+                    string insertQuery = @"INSERT INTO employee (EmployeeID, FirstName, LastName, AddressLine1, DateOfBirth, EmploymentDate, PostalCode, PostalCity, Country, IsDeleted)
                                    VALUES (@EmployeeID, @FirstName, @LastName, @AddressLine1, @DateOfBirth, @EmploymentDate ,@PostalCode, @PostalCity, @Country, @IsDeleted)";
                     using (MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn))
                     {

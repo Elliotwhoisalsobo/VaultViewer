@@ -8,6 +8,32 @@
        
         AllowsTransparency="True"
         WindowStyle="None" PreviewKeyDown="Window_PreviewKeyDown">
+    <Window.Resources>
+        <Style x:Key="Btn_Fallout" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="LimeGreen"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="LimeGreen"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="LimeGreen"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="BorderBrush" Value="LimeGreen"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <!-- Scanline Background -->
         <Grid.Background>
@@ -70,11 +96,16 @@
         
         <!-- Popup -->
         <Popup x:Name="AdminPopup" StaysOpen="False" Placement="Center" IsOpen="False" Visibility="Visible">
-            <Border Background="White" BorderBrush="Black" BorderThickness="1" Padding="10">
+            <Border Background="Black" BorderBrush="LimeGreen" BorderThickness="1" Padding="10" CornerRadius="5">
                 <StackPanel>
-                    <TextBlock Text="Choose between UserPanel and AdminPanel:" Margin="0,0,0,10" HorizontalAlignment="Center"/>
-                    <Button Content="UserPanel" Click="BtnOpenUserPanel" Margin="5"/>
-                    <Button Content="AdminPanel" Click="BtnOpenAdminPanel" Margin="5"/>
+                    <TextBlock Text="Choose between UserPanel and AdminPanel:" 
+                       Foreground="LimeGreen" FontFamily="Consolas" FontSize="14" 
+                       Margin="0,0,0,10" HorizontalAlignment="Center"/>
+
+                    <Button Content="UserPanel" Click="BtnOpenUserPanel" 
+                    Style="{StaticResource Btn_Fallout}" Margin="5" Width="150" HorizontalAlignment="Center"/>
+                    <Button Content="AdminPanel" Click="BtnOpenAdminPanel" 
+                    Style="{StaticResource Btn_Fallout}" Margin="5" Width="150" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
         </Popup>

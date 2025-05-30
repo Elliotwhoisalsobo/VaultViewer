@@ -1,0 +1,7 @@
+UserName,PasswordHash,EmployeeID
+Admin, $2a$11$fPaPQ2mbHKBjoWf4buUrzeTMuRoahJyswdKl5ZOKMQCCu.A9x6gVO, 4
+Artyom, $2a$11$fethBIsQ2NFmRQHECCLp8u48zXU973BxPYeRLklkHt.1GyYJ4I1Yq, 8
+Elliot, $2a$11$.QeINrO0EsiV5n5cXZ.ql.TrEmXmpk2szYo/EpVFi7MmoAEXvRPEK, 7
+Engineering, $2a$11$BAdFSraqs/4z6yaNcftwo.ciYMFjaGavyjnQnX7dwjyAk/7ot3fBe, 3
+HumanResources, $2a$11$2n3zO5EkQPXxk1sPubn07.UBolyLpLFmodH7RY02VvCh/CDoKunbW, 2
+User, $2a$11$lcxaghH.VJGXjgjTFWQt3ON31xQdnJydtLd2be9qdHMZzjrj6WBuO, 1

@@ -9,7 +9,7 @@
         Foreground="LimeGreen"
         Background="Black">
 
-    <!--some cool shit : )-->
+    <!--some cool animation shit : )-->
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
@@ -89,13 +89,6 @@
     </Window.Resources>
 
     <Grid>
-        <!-- Logout Button -->
-        <!--Fallout style scanlines-->
-        <!-- Logout Button -->
-        <!--Fallout style scanlines-->
-        <!-- Logout Button -->
-        <!--Fallout style scanlines-->
-        <!-- Logout Button -->
         <!--Fallout style scanlines-->
         <Rectangle IsHitTestVisible="False" Panel.ZIndex="99" Opacity="0.2">
             <Rectangle.Fill>
@@ -141,9 +134,10 @@
             <!--<Button x:Name="BtnSort" Visibility="Hidden" Content="Sort" VerticalAlignment="Bottom" Margin="15,0,0,25" Width="45" />-->
             <Button x:Name="BtnFilter" Visibility="Hidden" Click="FilterData" Content="Max rows" VerticalAlignment="Bottom" Margin="15,0,0,25" Width="80" />
             <Button x:Name="BtnExport" Visibility="Hidden" Content="Export"  Click="ExportDataOptions" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="55"/>
+            <TextBox x:Name="LimitInput" Visibility="Hidden" Margin="150,0,0,25" Text="[number]" Background="Black" Foreground="LimeGreen" VerticalAlignment="Bottom" Width="55"/>
             <!--<Button x:Name="BtnExport2" Visibility="Hidden" Content="Export to Excel"  Click="ExportDataExcel" VerticalAlignment="Bottom" Margin="25,0,0,25" Width="86"/> -->
         </StackPanel>
-        <TextBox x:Name="LimitInput" Visibility="Hidden" Margin="0,340,415,0" Text="[number]" VerticalAlignment="Center" HorizontalAlignment="Right" />
+        
         <!--Radio button for export options-->
         <StackPanel Margin="208,0,0,0" VerticalAlignment="Bottom" Height="48">
             <!-- First radio button with text -->
@@ -158,11 +152,5 @@
                 <TextBlock Name="radiobtntext2" Text="Export to Excel" Visibility="Hidden" VerticalAlignment="Center" Margin="-75,0"/>
             </StackPanel>
         </StackPanel>
-
-
-
-
-
-        <!--Fallout style scanlines-->
     </Grid>
 </Window>

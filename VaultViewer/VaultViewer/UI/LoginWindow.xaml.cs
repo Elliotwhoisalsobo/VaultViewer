@@ -105,13 +105,13 @@ namespace VaultViewer.UI
             this.Close();
         }
 
-        // Key stuff
+        // Key stuff (This stuff is really more complex then it needs to be imo...)
         // Esc = close window methods
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                // If the focused control is a Button, simulate a click event
+                // If the focused control is a Button --> simulate a click event
                 if (Keyboard.FocusedElement is Button button)
                 {
                     button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
@@ -137,9 +137,6 @@ namespace VaultViewer.UI
         }
     }
 }
-
-        // Buttons are instantiated or not depending on role of user
-        // Make second window LoginWindow --> MainWindow
 
 
 

@@ -19,10 +19,10 @@ namespace VaultViewer.ServiceLayer
         // db connection
         MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString);
         private string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString; // No hardcoded connectionstring : D // readonly
-        //public string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root"; // removed hardcode
+                                                                                                                  //public string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root"; // removed hardcode
 
 
-       // check if connectionstring is valid or not.
+        // check if connectionstring is valid or not.
         public bool TestConnection()
         {
 
@@ -45,7 +45,7 @@ namespace VaultViewer.ServiceLayer
         // password hashing:
         public string HashPassword(string plainPassword)
         {
-            
+
             return BCrypt.Net.BCrypt.HashPassword(plainPassword);
         }
 
@@ -130,8 +130,8 @@ namespace VaultViewer.ServiceLayer
             UsernameTooShort,
             PasswordTooShort,
             EmployeeNotFound,
-            UserAlreadyExists, // not yet implemented
-            InvaliddatabaseConnection // not yet implemented
+            UserAlreadyExists, // implemented inside "createuser" method (checks mysql error code for duplicate values (1062) 
+            InvaliddatabaseConnection // Not needed since "test db connection" is already implemented as a btn
         }
 
         // Helper method getuser for useralreadyexists case:
@@ -157,8 +157,6 @@ namespace VaultViewer.ServiceLayer
                 return InputValidationResult.PasswordTooShort;
             if (employeeId == -1)
                 return InputValidationResult.EmployeeNotFound;
-            //if (username == already in employeeLogin)
-            //return InputValidationResult.UserAlreadyExists;
 
             return InputValidationResult.Valid;
         }
@@ -196,7 +194,7 @@ namespace VaultViewer.ServiceLayer
                         MessageBox.Show("Username is missing.");
                         return false;
 
-                    
+
                     case InputValidationResult.MissingPassword:
                         MessageBox.Show("Password is missing.");
                         return false;
@@ -221,18 +219,35 @@ namespace VaultViewer.ServiceLayer
                         break;
 
                         // user already exists
-                }   
-
-                // Step 3: Insert the new user login with the associated EmployeeID
-                const string insertQuery = "INSERT INTO employeelogin (UserName, PasswordHash, EmployeeID) VALUES (@username, @passwordhash, @employeeid)";
-                using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                }
+                try
                 {
-                    cmd.Parameters.AddWithValue("@username", username);
-                    cmd.Parameters.AddWithValue("@passwordhash", hashedPassword);
-                    cmd.Parameters.AddWithValue("@employeeid", employeeId);
-                    //MySql.Data.MySqlClient.MySqlException: 'Duplicate entry 'admin' for key 'employeelogin.PRIMARY''
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0;
+                    // Step 3: Insert the new user login with the associated EmployeeID
+                    const string insertQuery = "INSERT INTO employeelogin (UserName, PasswordHash, EmployeeID) VALUES (@username, @passwordhash, @employeeid)";
+                    using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", username);
+                        cmd.Parameters.AddWithValue("@passwordhash", hashedPassword);
+                        cmd.Parameters.AddWithValue("@employeeid", employeeId);
+
+                        //MySql.Data.MySqlClient.MySqlException: 'Duplicate entry 'admin' for key 'employeelogin.PRIMARY''
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    // Check if it's a duplicate key error
+                    if (ex.Number == 1062) // 1062 Duplicate entry into DB (User already has a password)
+                    {
+                        MessageBox.Show("This user already has a password.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("An error occurred: " + ex.Message);
+                    }
+
+                    return false;
                 }
             }
         }

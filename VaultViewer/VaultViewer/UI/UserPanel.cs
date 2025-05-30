@@ -129,7 +129,7 @@ namespace VaultViewer.UI
                     conn.Open();
                     // establishing connection to DB
                     //MessageBox.Show("Connected to db!"); // debug
-                    MySqlCommand cmd = new MySqlCommand("Select Name from customer", conn);
+                    MySqlCommand cmd = new MySqlCommand("Select * from customer", conn);
                     // Filling up dataset with data from DB
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_employeeData = new DataSet();
@@ -166,7 +166,7 @@ namespace VaultViewer.UI
                     conn.Open();
                     // do stuff w connection
                     //MessageBox.Show("Connected to db!"); // debug
-                    MySqlCommand cmd = new MySqlCommand("Select * from employee", conn);
+                    MySqlCommand cmd = new MySqlCommand("Select EmployeeID, FirstName, LastName, DateOfBirth, AddressLine1, AddressLine2, PostalCode, PostalCity, Country, EmploymentDate from employee", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_employee = new DataSet();
                     adp.Fill(dataset_employee, "LoadDataBinding");
@@ -275,7 +275,7 @@ namespace VaultViewer.UI
             var visibleDataGrid = GroupOfDatagrids().Where(x => x.Visibility == Visibility.Visible).Single();
 
 
-            if (visibleDataGrid != null)
+            if (visibleDataGrid == null)
             {
                 MessageBox.Show("No datagrid is currently visible : (");
             }
@@ -348,9 +348,13 @@ namespace VaultViewer.UI
 
             List<string> lines = new List<string>();
             lines.Add(String.Join(',', dataGrid.Columns.Select(x => x.Header)));
-            lines.AddRange(dataGrid.Items.Cast<DataRowView>().Select(x => x.Row.Field<string>("Name")));
+            lines.AddRange(dataGrid.Items.Cast<DataRowView>()
+            .Select(x => $"{x.Row["CustomerID"]}, {x.Row["Name"]}, {x.Row["AddressLine1"]}, {x.Row["PostalCode"]}, {x.Row["PostalCity"]}, {x.Row["Country"]}, {x.Row["ContactPerson"]}, {x.Row["VATNumber"]}, {x.Row["PhoneNumber"]}, {x.Row["IsCompany"]}, {x.Row["IsActive"]}")
+);
             //var filepath = Directory.GetCurrentDirectory();
-            var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
+            filepath = Path.GetFullPath(filepath); // Resolves relative segments
             var filename = "CustomerData.csv";
 
             using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
@@ -378,7 +382,9 @@ namespace VaultViewer.UI
 );
 
             //var filepath = Directory.GetCurrentDirectory();
-            var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
+            filepath = Path.GetFullPath(filepath); // Resolves relative segments
             var filename = "EngineerData.csv";
 
             using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
@@ -398,9 +404,15 @@ namespace VaultViewer.UI
 
             List<string> lines = new List<string>();
             lines.Add(String.Join(',', dataGrid.Columns.Select(x => x.Header)));
-            lines.AddRange(dataGrid.Items.Cast<DataRowView>().Select(x => x.Row.Field<string>("Name")));
+            lines.AddRange(
+            dataGrid.Items
+            .Cast<DataRowView>()
+            .Select(x => $"{x.Row["EmployeeID"]}, {x.Row["FirstName"]}, {x.Row["LastName"]}, {x.Row["DateOfBirth"]} {x.Row["AddressLine1"]}, {x.Row["PostalCode"]}, {x.Row["PostalCity"]}, {x.Row["Country"]}, {x.Row["EmploymentDate"]}, {x.Row["CurrentMonthlySalary"]}")
+);
             //var filepath = Directory.GetCurrentDirectory();
-            var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
+            filepath = Path.GetFullPath(filepath); // Resolves relative segments
             var filename = "CustomerData.csv";
 
             using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
@@ -420,9 +432,14 @@ namespace VaultViewer.UI
 
             List<string> lines = new List<string>();
             lines.Add(String.Join(',', dataGrid.Columns.Select(x => x.Header)));
-            lines.AddRange(dataGrid.Items.Cast<DataRowView>().Select(x => x.Row.Field<string>("Name")));
-            //var filepath = Directory.GetCurrentDirectory();
-            var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            lines.AddRange(dataGrid.Items
+            .Cast<DataRowView>()
+            .Select(x => $"{x.Row["UserName"]}, {x.Row["PasswordHash"]}, {x.Row["EmployeeID"]}")
+);
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
+            filepath = Path.GetFullPath(filepath); // Resolves relative segments
+            //var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
             var filename = "CustomerData.csv";
 
             using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
@@ -470,8 +487,11 @@ namespace VaultViewer.UI
             // Save file
 
             // change later (to work for everyone not just me : )
-            string exportPath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
-            string fullPath = Path.Combine(exportPath, filename);
+            var basePath = AppDomain.CurrentDomain.BaseDirectory;
+            var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
+            filepath = Path.GetFullPath(filepath); // Resolves relative segments
+            //string exportPath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
+            string fullPath = Path.Combine(filepath, filename);
 
             workbook.SaveAs(fullPath);
             MessageBox.Show($"Data successfully exported to Excel:\n{fullPath}");
@@ -497,7 +517,7 @@ namespace VaultViewer.UI
 
             string query = visibleDataGrid.Name switch
             {   // I absolutely fucking love the fat squid (=>) lambda function : DDD
-                "EmployeeData" => $"SELECT Name FROM customer LIMIT {limit}",
+                "EmployeeData" => $"SELECT * FROM customer LIMIT {limit}",
                 "EngineerData" => $"SELECT * FROM product LIMIT {limit}",
                 "HRData" => $"SELECT * FROM employee LIMIT {limit}",
                 "AdminData" => $"SELECT * FROM employeelogin LIMIT {limit}",
