@@ -207,16 +207,34 @@ namespace VaultViewer.UI
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    //string query = "DELETE FROM employee WHERE EmployeeID = @EmployeeID";
-                    string query = "UPDATE employee SET IsDeleted = 1 WHERE EmployeeID = @EmployeeID";
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@EmployeeID", EmployeeID);
-                    cmd.ExecuteNonQuery();
+
+                    // Begin a transaction to ensure both queries succeed or fail together
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        // 1. Soft delete the employee
+                        string employeeDeleteQuery = "UPDATE employee SET IsDeleted = 1 WHERE EmployeeID = @EmployeeID";
+                        using (var cmd1 = new MySqlCommand(employeeDeleteQuery, conn, transaction))
+                        {
+                            cmd1.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+                            cmd1.ExecuteNonQuery();
+                        }
+
+                        // 2. Hard delete the employeelogin record (so they can't log in anymore)
+                        string loginDeleteQuery = "DELETE FROM employeelogin WHERE EmployeeID = @EmployeeID";
+                        using (var cmd2 = new MySqlCommand(loginDeleteQuery, conn, transaction))
+                        {
+                            cmd2.Parameters.AddWithValue("@EmployeeID", EmployeeID);
+                            cmd2.ExecuteNonQuery();
+                        }
+
+                        // Commit both changes
+                        transaction.Commit();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error deleting user: " + ex.Message);
             }
         }
 

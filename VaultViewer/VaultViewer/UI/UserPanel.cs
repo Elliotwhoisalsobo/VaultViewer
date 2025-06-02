@@ -12,6 +12,7 @@ using System.IO;
 using System.Text;
 using ClosedXML.Excel;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace VaultViewer.UI
 {
@@ -273,7 +274,6 @@ namespace VaultViewer.UI
         private void ExportData(object sender, RoutedEventArgs e)
         {
             var visibleDataGrid = GroupOfDatagrids().Where(x => x.Visibility == Visibility.Visible).Single();
-
 
             if (visibleDataGrid == null)
             {
