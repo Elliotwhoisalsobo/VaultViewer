@@ -28,4 +28,7 @@ A user-friendly, offline desktop application built with **WPF**, serving as a ce
 - **C#**  
 - **WPF**  
 - **MySQL**  
-- **Design Patterns (Layered Architecture)**  
+- **Design Patterns (Layered Architecture)**
+
+## Pictures
+WIP
