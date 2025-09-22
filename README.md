@@ -8,7 +8,9 @@ A user-friendly, offline desktop application built with **WPF**, serving as a ce
 
 ## Features
 - User panel and admin panel with clear access rights and role management.  
-- Designed for both technical and non-technical users to operate efficiently.  
+- Designed for both technical and non-technical users to operate efficiently.
+- Filter & sort data
+- Export data to CSV/Excel in one click
 
 ## Architecture
 - Based on a **Layered Architecture pattern** for scalability and maintainability:  
@@ -18,7 +20,7 @@ A user-friendly, offline desktop application built with **WPF**, serving as a ce
   - UI  
 
 ## Security
-- Secure user authentication with **bcrypt** password hashing.  
+- Secure user authentication with **password hashing**.  
 - All sensitive data stored with a strong focus on integrity and confidentiality.  
 
 ## Database Integration
