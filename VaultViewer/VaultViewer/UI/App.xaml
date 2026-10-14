@@ -5,8 +5,27 @@
              StartupUri="LoginWindow.xaml"> <!-- MainWindow -->
     <Application.Resources>
         <DropShadowEffect x:Key="DropShadowEffect" Color="LimeGreen" BlurRadius="20" ShadowDepth="0"/>
-        <Style x:Key="Terminal">
-            <Setter Property="TextElement.FontFamily" Value="Fonts/#ShareTechMono-Regular"/> <!--NOT WORKING (no idea why)-->
+        <Style x:Key="TerminalButton" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="LimeGreen"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="LimeGreen"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5,2"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style x:Key="TerminalText" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="LimeGreen"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="TerminalBorder" TargetType="Border">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="BorderBrush" Value="LimeGreen"/>
+            <Setter Property="BorderThickness" Value="1"/>
         </Style>
     </Application.Resources>
 </Application>

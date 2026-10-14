@@ -1,25 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 using System.Windows;
 using MySql.Data.MySqlClient;
-using BCrypt.Net;
-using System.Security.Cryptography.X509Certificates;
-using VaultViewer.UI;
-using Org.BouncyCastle.Asn1.X509;
-using System.Configuration;
-using VaultViewer.DataAccessLayer;
 
 namespace VaultViewer.ServiceLayer
 { // should not know whether it's wpf/console/etc <-- NO UI LOGIC
     public class LoginService
     {
-        // db connection
-        MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString);
-        private string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString; // No hardcoded connectionstring : D // readonly
-                                                                                                                  //public string connectionString = "Server=localhost;Database=vaultviewer;Uid=root;Pwd=root"; // removed hardcode
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString;
 
 
         // check if connectionstring is valid or not.
@@ -90,7 +79,6 @@ namespace VaultViewer.ServiceLayer
                 using (MySqlCommand cmd = new MySqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
-                    //cmd.Parameters.AddWithValue("@passwordhash", password);
 
                     using (var reader = cmd.ExecuteReader())
                     {
@@ -129,17 +117,8 @@ namespace VaultViewer.ServiceLayer
             EmptyUsernameAndPassword,
             UsernameTooShort,
             PasswordTooShort,
-            EmployeeNotFound,
-            UserAlreadyExists, // implemented inside "createuser" method (checks mysql error code for duplicate values (1062) 
-            InvaliddatabaseConnection // Not needed since "test db connection" is already implemented as a btn
+            EmployeeNotFound
         }
-
-        // Helper method getuser for useralreadyexists case:
-        //private bool UserExists(string username)
-        //{
-        //    // employeeLogin
-        //    if username is in 
-        //}
 
 
         // Helper method to validate userinput:
@@ -253,21 +232,4 @@ namespace VaultViewer.ServiceLayer
         }
     }
 }
-// create method to assign role(s) to certain customers? (for admin panel)
-
-
-
-
-// Retrieve a user's roles
-/* SELECT r.name
-FROM
-    Users u JOIN
-    Employee e ON u.EmployeeId = e.EmployeeId JOIN
-    EmployeeRole er ON e.EmployeeId = er.EmployeeId JOIN
-    Role r ON er.RoleId = r.RoleId
-WHERE
-    u.UserName = @UserName AND
-    u.Password = @Password;
-*/
-
 

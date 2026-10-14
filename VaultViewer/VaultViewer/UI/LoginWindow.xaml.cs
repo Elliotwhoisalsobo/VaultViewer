@@ -1,15 +1,6 @@
-﻿using Microsoft.Win32;
-using System.Diagnostics.Eventing.Reader;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using VaultViewer.ServiceLayer;
 
 namespace VaultViewer.UI
@@ -29,8 +20,6 @@ namespace VaultViewer.UI
         // test db connection
         private void BtnTestConnection_Click(object sender, RoutedEventArgs e) // click <-- event | sender = what created the event | routedeventargs <-- info of clicker (like role) (rarely used)
         {
-            var a = Elliot.ActualHeight;
-            // give datagrid a name "var a = datagridname.command
             var database = new LoginService();
             database.TestConnection();
         }
@@ -54,8 +43,6 @@ namespace VaultViewer.UI
 
         private void BtnAuthenticate(object sender, RoutedEventArgs e)
         {
-            var a = Authenticate.ActualHeight;
-
             var database = new LoginService();
             string Username = txt_Username.Text;
             string Password = txt_Password.Password;
@@ -66,7 +53,6 @@ namespace VaultViewer.UI
             {
                 MessageBox.Show("Admin login succesfull.");
                 AdminPopup.IsOpen = true;
-                //this.Close(); // Current instance of loginwindow
             }
 
             else if (success)
@@ -86,12 +72,11 @@ namespace VaultViewer.UI
 
         private void BtnOpenUserPanel(object sender, RoutedEventArgs e)
         {
-            // Minimize later?
             var database = new LoginService();
             string Username = txt_Username.Text;
             string Password = txt_Password.Password;
 
-            bool success = database.Authenticate(Username, Password, out List<string> userRoles);
+            database.Authenticate(Username, Password, out List<string> userRoles);
 
             UserPanel userpanel = new UserPanel(userRoles);
             userpanel.Show();

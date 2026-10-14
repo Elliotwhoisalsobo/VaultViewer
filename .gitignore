@@ -3,5 +3,7 @@
 ################################################################################
 
 /VaultViewer/VaultViewer/obj
+/VaultViewer/VaultViewer/bin
 /.vs
 /VaultViewer/.vs/VaultViewer
+*.user

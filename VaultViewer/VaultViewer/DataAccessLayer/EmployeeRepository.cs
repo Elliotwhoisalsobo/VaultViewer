@@ -1,11 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VaultViewer.ServiceLayer;
-using VaultViewer.Business; // unused ???
 
 namespace VaultViewer.DataAccessLayer
 {
@@ -18,11 +12,9 @@ namespace VaultViewer.DataAccessLayer
             public int EmployeeId { get; set; }
             public string? FirstName { get; set; }
             public string? LastName { get; set; }
-            // Add more fields as needed
             public List<Employee> GetAllEmployees()
             {
                 List<Employee> employees = new List<Employee>();
-                var loginService = new LoginService();
 
                 using (var conn = DatabaseConfig.GetConnection())
                 {

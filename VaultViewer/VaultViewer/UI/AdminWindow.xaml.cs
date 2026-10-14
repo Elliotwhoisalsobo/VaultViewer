@@ -1,24 +1,9 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using VaultViewer.Business;
 using VaultViewer.DataAccessLayer;
-using static VaultViewer.DataAccessLayer.EmployeeRepository;
 
 namespace VaultViewer.UI
 {
@@ -32,8 +17,6 @@ namespace VaultViewer.UI
             public int Id { get; set; }
             public string Name { get; set; }
         }
-
-        private int selectedEmployeeId = -1; // Global variable to get the employeeID from the ListBox (for popup)
 
         public AdminWindow()
         {
@@ -87,24 +70,13 @@ namespace VaultViewer.UI
         }
         private void BtnAddEmployeeRole(object sender, RoutedEventArgs e)
         {
-            var employee = EmployeeListBox.SelectedItem as EmployeeViewData; // Initiatiate the currently selected employee record from the ListBox
-            if (employee == null)
+            if (EmployeeListBox.SelectedItem is not EmployeeViewData)
             {
                 MessageBox.Show("Please select an employee first");
                 return;
             }
-            else
-
-            
-            //GetEmployeesDataTable(); // THIS BITCH RELOADED MY SHIT CAUSING EMPLOYEE ID TO BE -1 
-            AddEmployeeRole(selectedEmployeeId); // WORKS !!!
-        }
-
-        private void AddEmployeeRole(int EmployeeID)
-        {
 
             AssignRolePopup.IsOpen = true;
-
         }
         private void AssignRoleToEmployee(int employeeId, string roleName)
         {
@@ -202,9 +174,8 @@ namespace VaultViewer.UI
 
 
 
-    private void BtnDeleteEmployee(object sender, RoutedEventArgs e)
-    {
-        //var emplyee1 = (EmployeeViewData)EmployeeListBox.SelectedItem;
+        private void BtnDeleteEmployee(object sender, RoutedEventArgs e)
+        {
             var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
             if (employee == null)
             {
@@ -261,14 +232,6 @@ namespace VaultViewer.UI
             DeleteEmployeeBtn.Visibility = Visibility.Visible;
             Btn_AddEmployeeRole.Visibility = Visibility.Hidden;
             GetEmployeesDataTable();
-            //EmployeeListBox.ItemsSource = GetEmployeesDataTable().DefaultView; // Results in an ERROR "id not found"
-        }
-
-
-        private void EmployeeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //EmployeeListBox.SelectedItem = 
-            var a = 1;
         }
 
 
@@ -289,10 +252,8 @@ namespace VaultViewer.UI
             string PostalCode = PostalCodeBox.Text;
             string PostalCity = PostalCityBox.Text;
             string Country = CountryBox.Text;
-            //DateTime? EmploymentDate = EmploymentDateBox.SelectedDate;
 
-            int isdeleted = 0; // make this functional later
-                               // string department = (DepartmentBox.SelectedItem as ComboBoxItem)?.Content.ToString(); // Make this add a record to the employeerole table later
+            int isdeleted = 0;
 
             // Putting the data into the MYSQLDB:
 
@@ -346,33 +307,6 @@ namespace VaultViewer.UI
         {
             AddEmployeePopup.IsOpen = false;
         }
-
-        //   private void addEmployee(int EmployeeID)
-        //    {
-        //        EmployeeListBox.Items.Add(EmployeeID);
-        ////                    AssignRoleToEmployee(selectedEmployeeId, "Default");
-        //    AssignRolePopup.IsOpen = false;
-        //    }
-
-        //    private void addEmployeeToDB(int EmployeeID)
-        //    {
-
-        //    try
-        //    {
-        //        using (var conn = DatabaseConfig.GetConnection())
-        //        {
-        //            conn.Open();
-        //            string query = "UPDATE employee SET IsDeleted = 1 WHERE EmployeeID = @EmployeeID";
-        //            MySqlCommand cmd = new MySqlCommand(query, conn);
-        //            cmd.Parameters.AddWithValue("@EmployeeID", EmployeeID);
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-        //}
 
 
     }

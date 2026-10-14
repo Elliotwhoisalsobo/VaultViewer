@@ -9,30 +9,8 @@
         AllowsTransparency="True"
         WindowStyle="None" PreviewKeyDown="Window_PreviewKeyDown">
     <Window.Resources>
-        <Style x:Key="Btn_Fallout" TargetType="Button">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="LimeGreen"/>
-            <Setter Property="FontFamily" Value="Consolas"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderBrush" Value="LimeGreen"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="5,2"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="LimeGreen"/>
-            <Setter Property="FontFamily" Value="Consolas"/>
-            <Setter Property="FontSize" Value="14"/>
-        </Style>
-
-        <Style TargetType="Border">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="BorderBrush" Value="LimeGreen"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource TerminalText}"/>
+        <Style TargetType="Border" BasedOn="{StaticResource TerminalBorder}"/>
     </Window.Resources>
     <Grid>
         <!-- Scanline Background -->
@@ -103,9 +81,9 @@
                        Margin="0,0,0,10" HorizontalAlignment="Center"/>
 
                     <Button Content="UserPanel" Click="BtnOpenUserPanel" 
-                    Style="{StaticResource Btn_Fallout}" Margin="5" Width="150" HorizontalAlignment="Center"/>
+                    Style="{StaticResource TerminalButton}" Margin="5" Width="150" HorizontalAlignment="Center"/>
                     <Button Content="AdminPanel" Click="BtnOpenAdminPanel" 
-                    Style="{StaticResource Btn_Fallout}" Margin="5" Width="150" HorizontalAlignment="Center"/>
+                    Style="{StaticResource TerminalButton}" Margin="5" Width="150" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
         </Popup>

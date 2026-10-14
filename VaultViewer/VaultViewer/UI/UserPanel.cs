@@ -1,18 +1,13 @@
-﻿using Org.BouncyCastle.Tls;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using MySql.Data.MySqlClient;
-using VaultViewer.ServiceLayer;
-using VaultViewer.DataAccessLayer;
 using System.Data;
-using System.Windows.Controls;
-using VaultViewer.Business;
 using System.IO;
-using System.Text;
-using ClosedXML.Excel;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
+using ClosedXML.Excel;
+using MySql.Data.MySqlClient;
+using VaultViewer.DataAccessLayer;
 
 namespace VaultViewer.UI
 {
@@ -63,7 +58,6 @@ namespace VaultViewer.UI
         {
             List<Button> groupOfDataButtons = new List<Button>
             {
-            //BtnSort,
             BtnFilter,
             BtnExport,
             };
@@ -117,10 +111,6 @@ namespace VaultViewer.UI
             {
                 btn.Visibility = Visibility.Visible;
             }
-            //BtnFilter.Visibility = Visibility.Visible;
-            //BtnSort.Visibility = Visibility.Visible;
-            //BtnExport.Visibility = Visibility.Visible; 
-
 
             EmployeeData.Visibility = Visibility.Visible; // dataGrid
             try
@@ -128,8 +118,6 @@ namespace VaultViewer.UI
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    // establishing connection to DB
-                    //MessageBox.Show("Connected to db!"); // debug
                     MySqlCommand cmd = new MySqlCommand("Select * from customer", conn);
                     // Filling up dataset with data from DB
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
@@ -165,8 +153,6 @@ namespace VaultViewer.UI
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    // do stuff w connection
-                    //MessageBox.Show("Connected to db!"); // debug
                     MySqlCommand cmd = new MySqlCommand("Select EmployeeID, FirstName, LastName, DateOfBirth, AddressLine1, AddressLine2, PostalCode, PostalCity, Country, EmploymentDate from employee", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_employee = new DataSet();
@@ -198,8 +184,6 @@ namespace VaultViewer.UI
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    // do stuff w connection
-                    //MessageBox.Show("Connected to db!"); // debug
                     MySqlCommand cmd = new MySqlCommand("Select * from product", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_engineer = new DataSet();
@@ -231,8 +215,6 @@ namespace VaultViewer.UI
                 using (var conn = DatabaseConfig.GetConnection())
                 {
                     conn.Open();
-                    // do stuff w connection
-                    //MessageBox.Show("Connected to db!"); // debug
                     MySqlCommand cmd = new MySqlCommand("Select * from employeelogin", conn);
                     MySqlDataAdapter adp = new MySqlDataAdapter(cmd);
                     DataSet dataset_admin = new DataSet();
@@ -246,22 +228,7 @@ namespace VaultViewer.UI
                 MessageBox.Show(ex.ToString());
             }
         }
-        
-        /*private void FilterData(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                
-            }
-        }
 
-        private void OrderData(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-
-            }
-        }*/
         // Reveal radio buttons & text when "Export" btn is pressed
         private void ExportDataOptions(object sender, RoutedEventArgs e)
         {
@@ -351,7 +318,6 @@ namespace VaultViewer.UI
             lines.AddRange(dataGrid.Items.Cast<DataRowView>()
             .Select(x => $"{x.Row["CustomerID"]}, {x.Row["Name"]}, {x.Row["AddressLine1"]}, {x.Row["PostalCode"]}, {x.Row["PostalCity"]}, {x.Row["Country"]}, {x.Row["ContactPerson"]}, {x.Row["VATNumber"]}, {x.Row["PhoneNumber"]}, {x.Row["IsCompany"]}, {x.Row["IsActive"]}")
 );
-            //var filepath = Directory.GetCurrentDirectory();
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
             filepath = Path.GetFullPath(filepath); // Resolves relative segments
@@ -380,8 +346,6 @@ namespace VaultViewer.UI
             .Cast<DataRowView>()
             .Select(x => $"{x.Row["ProductID"]}, {x.Row["Name"]}, {x.Row["Description"]}, {x.Row["Price"]}")
 );
-
-            //var filepath = Directory.GetCurrentDirectory();
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
             filepath = Path.GetFullPath(filepath); // Resolves relative segments
@@ -409,7 +373,6 @@ namespace VaultViewer.UI
             .Cast<DataRowView>()
             .Select(x => $"{x.Row["EmployeeID"]}, {x.Row["FirstName"]}, {x.Row["LastName"]}, {x.Row["DateOfBirth"]} {x.Row["AddressLine1"]}, {x.Row["PostalCode"]}, {x.Row["PostalCity"]}, {x.Row["Country"]}, {x.Row["EmploymentDate"]}")
 );
-            //var filepath = Directory.GetCurrentDirectory();
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
             filepath = Path.GetFullPath(filepath); // Resolves relative segments
@@ -439,7 +402,6 @@ namespace VaultViewer.UI
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
             filepath = Path.GetFullPath(filepath); // Resolves relative segments
-            //var filepath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
             var filename = "CustomerData.csv";
 
             using (var writer = new StreamWriter(Path.Combine(filepath, filename)))
@@ -484,13 +446,9 @@ namespace VaultViewer.UI
                 row++;
             }
 
-            // Save file
-
-            // change later (to work for everyone not just me : )
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             var filepath = Path.Combine(basePath, @"..\..\..\DataAccessLayer\Data\");
             filepath = Path.GetFullPath(filepath); // Resolves relative segments
-            //string exportPath = @"C:\Users\Elliot\OneDrive - Thomas More\Applied Data Intelligence\sem2\inspiration lab\project\VaultViewer\VaultViewer\VaultViewer\DataAccessLayer\Data\";
             string fullPath = Path.Combine(filepath, filename);
 
             workbook.SaveAs(fullPath);
