@@ -21,11 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataAccessLayer\Data\" />
-    <Folder Include="UI\Fonts\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="UI\Pictures\fallout-video-games-simple-minimalism-stripes-wallpaper-preview.jpg" />
     <Resource Include="UI\Pictures\icon.png" />
   </ItemGroup>

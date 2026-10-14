@@ -1,3 +1,0 @@
-CustomerID,Name,AddressLine1,AddressLine2,PostalCode,PostalCity,Country,ContactPerson,VATNumber,EmailAddress,PhoneNumber,IsCompany,IsActive
-1, TechWorld, Tech Street 10, 1010, Brussels, BE, Sarah Tech, BE0123456789, 0123456789, True, True
-2, GreenFarm, Nature Lane 22, 2020, Antwerp, BE, Mark Green, BE0987654321, 0987654321, True, True
