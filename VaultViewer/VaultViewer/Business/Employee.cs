@@ -9,7 +9,7 @@ namespace VaultViewer.Business
 		public string LastName { get; set; }
 		public DateTime DateOfBirth { get; set; }
 		public string AddressLine1 { get; set; }
-		public string AddressLine2 { get; set; }
+		public string? AddressLine2 { get; set; }
 		public string PostalCode { get; set; }
 		public string PostalCity { get; set; }
 		public string Country { get; set; }
@@ -17,7 +17,7 @@ namespace VaultViewer.Business
 		public decimal CurrentMonthlySalary { get; set; }
 
 		public Employee(int employeeID, string firstName, string lastName, DateTime dateOfBirth,
-						string addressLine1, string addressLine2, string postalCode, string postalCity,
+						string addressLine1, string? addressLine2, string postalCode, string postalCity,
 						string country, DateTime employmentDate, decimal currentMonthlySalary)
 		{
 			EmployeeID = employeeID;

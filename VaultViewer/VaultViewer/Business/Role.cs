@@ -4,10 +4,10 @@
 	{
 		public int RoleID { get; set; }
 		public string Name { get; set; }
-		public string Description { get; set; }
-		public string DepartmentName { get; set; }
+		public string? Description { get; set; }
+		public string? DepartmentName { get; set; }
 
-		public Role(int roleID, string name, string description, string departmentName)
+		public Role(int roleID, string name, string? description, string? departmentName)
 		{
 			RoleID = roleID;
 			Name = name;

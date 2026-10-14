@@ -94,7 +94,14 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}"/>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="FirstName"/>
+                                    <Binding Path="LastName"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
