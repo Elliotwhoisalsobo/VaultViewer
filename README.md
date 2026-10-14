@@ -1,40 +1,54 @@
 # VaultViewer
 
-## Goal
-Developed to solve the issue where sensitive data had to be manually requested from multiple managers, due to the absence of a secure central storage solution caused by strict security policies.
+VaultViewer is a WPF desktop application for managing role-based access to employee, customer, product, and login data stored in MySQL.
 
-## Description
-A user-friendly, offline desktop application built with **WPF**, serving as a central hub for storing and retrieving sensitive data — without the need for an internet connection or IT expertise.
+It was built to replace the manual process of requesting sensitive data from multiple managers with a central, access-controlled application that fits restrictive security policies.
+IT fully implements a layered-architecture design pattern.
 
 ## Features
-- User panel and admin panel with clear access rights and role management.  
-- Designed for both technical and non-technical users to operate efficiently.
-- Filter & sort data
-- Export data to CSV/Excel in one click
+
+- BCrypt password authentication
+- Role-based access to user, HR, engineering, and administration data
+- Employee creation, soft deletion, and role assignment
+- Configurable row limits
+- CSV and Excel export
 
 ## Architecture
-- Based on a **Layered Architecture pattern** for scalability and maintainability:  
-  - Business Logic  
-  - Data Access  
-  - Service  
-  - UI  
 
-## Security
-- Secure user authentication with **password hashing**.  
-- All sensitive data stored with a strong focus on integrity and confidentiality.  
+The application uses four layers:
 
-## Database Integration
-- Connects to a **MySQL database** for safe storage and retrieval of user data and records.  
+```text
+UI → Service layer → Data access layer → MySQL
+              ↘ Business models ↗
+```
 
-## Tech Stack
-- **C#**  
-- **WPF**  
-- **MySQL**  
-- **Design Patterns (Layered Architecture)**
+- `Business` contains the domain models.
+- `DataAccessLayer` contains MySQL repositories and connection management.
+- `ServiceLayer` contains authentication and application workflows.
+- `UI` contains the WPF windows and event handlers.
 
-## Pictures
-WIP
+## Requirements
 
-## To add
-- When admin creates a user it makes a one time use password instead of making the user inactive 
-- fix bug when adding new password --> password must be X chars (it shows x instead of number)
+- Windows
+- .NET 8 SDK
+- MySQL Server
+
+## Setup
+
+1. Create the database using `Database_script.sql`.
+2. Optionally load `example_data.sql`.
+3. Update the `VaultViewer` connection string in `VaultViewer/VaultViewer/DataAccessLayer/App.config`.
+4. Build and run the application:
+
+```powershell
+dotnet restore VaultViewer/VaultViewer.sln
+dotnet run --project VaultViewer/VaultViewer/VaultViewer.csproj
+```
+
+## Technology
+
+- C# and .NET 8
+- WPF
+- MySQL
+- ClosedXML
+- BCrypt.Net
