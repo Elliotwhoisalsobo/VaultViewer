@@ -3,7 +3,7 @@
 VaultViewer is a WPF desktop application for managing role-based access to employee, customer, product, and login data stored in MySQL.
 
 It was built to replace the manual process of requesting sensitive data from multiple managers with a central, access-controlled application that fits restrictive security policies.
-IT fully implements a layered-architecture design pattern.
+It implements a layered architecture.
 
 ## Features
 
@@ -27,22 +27,34 @@ UI → Service layer → Data access layer → MySQL
 - `ServiceLayer` contains authentication and application workflows.
 - `UI` contains the WPF windows and event handlers.
 
-## Requirements
+## Running from source
+
+Requirements:
 
 - Windows
 - .NET 8 SDK
 - MySQL Server
 
-## Setup
-
 1. Create the database using `Database_script.sql`.
 2. Optionally load `example_data.sql`.
 3. Update the `VaultViewer` connection string in `VaultViewer/VaultViewer/DataAccessLayer/App.config`.
-4. Build and run the application:
+4. Run the application:
 
 ```powershell
-dotnet restore VaultViewer/VaultViewer.sln
 dotnet run --project VaultViewer/VaultViewer/VaultViewer.csproj
+```
+
+`dotnet run` restores the required NuGet packages automatically.
+
+## Running a release
+
+A self-contained Windows release does not require the .NET SDK or a package restore. Extract the release archive and start `VaultViewer.exe`. A configured MySQL database is still required.
+
+To create the release archive:
+
+```powershell
+dotnet publish VaultViewer/VaultViewer/VaultViewer.csproj -c Release -r win-x64 --self-contained true -o publish
+Compress-Archive -Path publish\* -DestinationPath VaultViewer-win-x64.zip
 ```
 
 ## Technology
