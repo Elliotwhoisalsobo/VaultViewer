@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VaultViewer.Business
+﻿namespace VaultViewer.Business
 {
 	public class Login
 	{
         public string UserName { get; set; }
-		public string Password { get; set; } // Hashtable/map???
+		public string PasswordHash { get; set; }
 		public int EmployeeID { get; set; }
 
-		public Login(string userName, string password, int employeeID)
+		public Login(string userName, string passwordHash, int employeeID)
 		{
 			UserName = userName;
+			PasswordHash = passwordHash;
 			EmployeeID = employeeID;
-			Password = password;
 		}
 	}
 }

@@ -1,52 +1,31 @@
-﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static VaultViewer.ServiceLayer.LoginService;
-using System.Windows;
-using System.Configuration;
+﻿using VaultViewer.Business;
+using VaultViewer.DataAccessLayer;
 
 namespace VaultViewer.ServiceLayer
 {
     public class AdminpanelService
     {
-       // MySqlConnection conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString);
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["VaultViewer"].ConnectionString; // No hardcoded connectionstring : D
-        
-        //public bool DeleteUser(string user)
-        //{
-        //    using (MySqlConnection conn = new MySqlConnection(connectionString))
-        //    {
-        //        conn.Open();
+        private readonly EmployeeRepository employeeRepository = new();
+        private readonly RoleRepository roleRepository = new();
 
-        //        // Check if username == firstname (of employee)
-        //        const string selectEmployeeQuery = "SELECT EmployeeID FROM employee WHERE FirstName = @username LIMIT 1";
-        //        int employeeId = -1; // no employee found
+        public List<Employee> GetEmployees()
+        {
+            return employeeRepository.GetActive(4, 10000);
+        }
 
-        //        using (MySqlCommand selectCmd = new MySqlCommand(selectEmployeeQuery, conn))
-        //        {
-        //            selectCmd.Parameters.AddWithValue("@username", user);
+        public void AddEmployee(Employee employee)
+        {
+            employeeRepository.Add(employee);
+        }
 
-        //            // Execute and retrieve the EmployeeID if it exists
-        //            using (var reader = selectCmd.ExecuteReader())
-        //            {
-        //                if (reader.Read())
-        //                {
-        //                    employeeId = reader.GetInt32("EmployeeID");
-        //                }
+        public void DeleteEmployee(int employeeId)
+        {
+            employeeRepository.Delete(employeeId);
+        }
 
-        //                else
-        //                {
-        //                    MessageBox.Show("Employee not found!");
-        //                }
-        //                conn.Close();
-        //            }
-        //        }
-        //    }
-        //}
+        public bool AssignRole(int employeeId, string roleName)
+        {
+            return roleRepository.AssignToEmployee(employeeId, roleName);
+        }
     }
 }
-            
-

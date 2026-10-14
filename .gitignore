@@ -3,5 +3,8 @@
 ################################################################################
 
 /VaultViewer/VaultViewer/obj
+/VaultViewer/VaultViewer/bin
+/VaultViewer/VaultViewer/DataAccessLayer/Data
 /.vs
 /VaultViewer/.vs/VaultViewer
+*.user

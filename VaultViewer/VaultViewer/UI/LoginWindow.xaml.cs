@@ -1,145 +1,110 @@
-﻿using Microsoft.Win32;
-using System.Diagnostics.Eventing.Reader;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using VaultViewer.ServiceLayer;
 
 namespace VaultViewer.UI
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
+        private readonly LoginService loginService = new();
+
         public LoginWindow()
         {
             InitializeComponent();
-
         }
 
-
-        // test db connection
-        private void BtnTestConnection_Click(object sender, RoutedEventArgs e) // click <-- event | sender = what created the event | routedeventargs <-- info of clicker (like role) (rarely used)
+        private void BtnTestConnection_Click(object sender, RoutedEventArgs e)
         {
-            var a = Elliot.ActualHeight;
-            // give datagrid a name "var a = datagridname.command
-            var database = new LoginService();
-            database.TestConnection();
+            if (loginService.TestConnection(out var error))
+            {
+                MessageBox.Show("De databaseverbinding werkt.");
+                return;
+            }
+
+            MessageBox.Show($"De databaseverbinding is mislukt:\n{error}");
         }
 
         private void BtnCreateUser(object sender, RoutedEventArgs e)
         {
-            var database = new LoginService();
-            string Username = txt_Username.Text;
-            string Password = txt_Password.Password;
-            bool success = database.CreateUser(Username, Password);
-
-            if (success)
+            var result = loginService.CreateUser(txt_Username.Text, txt_Password.Password);
+            var message = result switch
             {
-                MessageBox.Show("User created succesfully : D");
-            }
-            else
-            {
-                MessageBox.Show("User creation unsuccesfull :(");
-            }
+                LoginService.CreateUserResult.Success => "De gebruiker is aangemaakt.",
+                LoginService.CreateUserResult.MissingUsername => "De gebruikersnaam ontbreekt.",
+                LoginService.CreateUserResult.MissingPassword => "Het wachtwoord ontbreekt.",
+                LoginService.CreateUserResult.EmptyUsernameAndPassword => "De gebruikersnaam en het wachtwoord ontbreken.",
+                LoginService.CreateUserResult.UsernameTooShort => "De gebruikersnaam moet minstens 3 tekens bevatten.",
+                LoginService.CreateUserResult.PasswordTooShort => "Het wachtwoord moet minstens 6 tekens bevatten.",
+                LoginService.CreateUserResult.EmployeeNotFound => "Er bestaat geen werknemer met deze voornaam.",
+                LoginService.CreateUserResult.UserAlreadyExists => "Deze gebruiker heeft al een wachtwoord.",
+                _ => "De gebruiker kon niet worden aangemaakt."
+            };
+            MessageBox.Show(message);
         }
 
         private void BtnAuthenticate(object sender, RoutedEventArgs e)
         {
-            var a = Authenticate.ActualHeight;
-
-            var database = new LoginService();
-            string Username = txt_Username.Text;
-            string Password = txt_Password.Password;
-
-            bool success = database.Authenticate(Username, Password, out List<string> userRoles);
-
-            if (success && Username == "admin")
+            var username = txt_Username.Text;
+            if (!loginService.Authenticate(username, txt_Password.Password, out var userRoles))
             {
-                MessageBox.Show("Admin login succesfull.");
+                MessageBox.Show("De aanmeldgegevens zijn ongeldig.");
+                return;
+            }
+
+            if (username == "admin")
+            {
+                MessageBox.Show("Aangemeld als beheerder.");
                 AdminPopup.IsOpen = true;
-                //this.Close(); // Current instance of loginwindow
+                return;
             }
 
-            else if (success)
-            {
-                MessageBox.Show("UserLogin successfull.");
-
-                UserPanel userpanel = new UserPanel(userRoles);
-                userpanel.Show();
-                this.Close();
-            }
-
-            else
-            {
-                MessageBox.Show("Invalid login details : (");
-            }
+            OpenUserPanel(userRoles);
         }
 
         private void BtnOpenUserPanel(object sender, RoutedEventArgs e)
         {
-            // Minimize later?
-            var database = new LoginService();
-            string Username = txt_Username.Text;
-            string Password = txt_Password.Password;
+            if (!loginService.Authenticate(txt_Username.Text, txt_Password.Password, out var userRoles))
+            {
+                MessageBox.Show("De aanmeldgegevens zijn ongeldig.");
+                return;
+            }
 
-            bool success = database.Authenticate(Username, Password, out List<string> userRoles);
+            OpenUserPanel(userRoles);
+        }
 
-            UserPanel userpanel = new UserPanel(userRoles);
-            userpanel.Show();
-            this.Close(); // Current instance of loginwindow
+        private void OpenUserPanel(List<string> userRoles)
+        {
+            new UserPanel(userRoles).Show();
+            Close();
         }
 
         private void BtnOpenAdminPanel(object sender, RoutedEventArgs e)
         {
-            AdminWindow adminPanel = new AdminWindow();
-            adminPanel.Show();
-            this.Close();
+            new AdminWindow().Show();
+            Close();
         }
 
-        // Key stuff (This stuff is really more complex then it needs to be imo...)
-        // Esc = close window methods
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && Keyboard.FocusedElement is Button button)
             {
-                // If the focused control is a Button --> simulate a click event
-                if (Keyboard.FocusedElement is Button button)
-                {
-                    button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-                }
+                button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
+
         private void exit_button(object sender, RoutedEventArgs e)
         {
-            this.Close();
-            
+            Close();
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
-
-            if(e.Key == Key.Escape) 
+            if (e.Key == Key.Escape)
             {
-                exit_button(null, e);
+                Close();
             }
-
-
         }
     }
 }
-
-
-
-
-
-    
