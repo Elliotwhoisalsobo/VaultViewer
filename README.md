@@ -1,4 +1,8 @@
-# VaultViewer
+<p align="center">
+  <img src="VaultViewer/VaultViewer/UI/Pictures/icon.png" alt="VaultViewer-logo" width="399">
+</p>
+
+<h1 align="center">VaultViewer</h1>
 
 VaultViewer is a WPF desktop application for managing role-based access to employee, customer, product, and login data stored in MySQL.
 
