@@ -152,14 +152,25 @@ namespace VaultViewer.UI
 
 
         private void AssignRole_Default(object sender, RoutedEventArgs e)
-            {
+        {
             var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
-            AssignRoleToEmployee(selectedEmployeeId, "Default");
+            if (employee == null)
+            {
+                MessageBox.Show("Please select an employee.");
+                return;
+            }
+            AssignRoleToEmployee(employee.Id, "Default");
             AssignRolePopup.IsOpen = false;
         }
         private void AssignRole_HR(object sender, RoutedEventArgs e)
         {
-            AssignRoleToEmployee(selectedEmployeeId, "HR");
+            var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
+            if (employee == null)
+            {
+                MessageBox.Show("Please select an employee.");
+                return;
+            }
+            AssignRoleToEmployee(employee.Id, "HR");
             AssignRolePopup.IsOpen = false;
         }
         private void AssignRole_Engineer(object sender, RoutedEventArgs e)
@@ -175,7 +186,13 @@ namespace VaultViewer.UI
         }
         private void AssignRole_Admin(object sender, RoutedEventArgs e)
         {
-            AssignRoleToEmployee(selectedEmployeeId, "Admin");
+            var employee = EmployeeListBox.SelectedItem as EmployeeViewData;
+            if (employee == null)
+            {
+                MessageBox.Show("Please select an employee.");
+                return;
+            }
+            AssignRoleToEmployee(employee.Id, "Admin");
             AssignRolePopup.IsOpen = false;
         }
         private void CancelAssignRole(object sender, RoutedEventArgs e)

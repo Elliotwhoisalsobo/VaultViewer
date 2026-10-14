@@ -34,3 +34,7 @@ A user-friendly, offline desktop application built with **WPF**, serving as a ce
 
 ## Pictures
 WIP
+
+## To add
+- When admin creates a user it makes a one time use password instead of making the user inactive 
+- fix bug when adding new password --> password must be X chars (it shows x instead of number)

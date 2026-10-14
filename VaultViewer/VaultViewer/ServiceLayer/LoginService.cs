@@ -208,7 +208,7 @@ namespace VaultViewer.ServiceLayer
                         return false;
 
                     case InputValidationResult.PasswordTooShort:
-                        MessageBox.Show("Password is too short (minmum of x chars");
+                        MessageBox.Show("Password is too short (minimum of 6 chars");
                         return false;
 
                     case InputValidationResult.EmployeeNotFound:
